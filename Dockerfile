@@ -3,6 +3,8 @@ FROM rocker/tidyverse
 RUN apt-get -qq update && \
   apt-get -qy install \
   python3-pip \
+  # Required for ggraph
+  libudunits2-dev \
   && apt-get clean
 
 RUN pip3 install rtichoke
