@@ -5,6 +5,9 @@ RUN apt-get -qq update && \
   python3-pip \
   # Required for ggraph
   libudunits2-dev \
+  # X11 Window system
+  xorg \
+  openbox \
   && apt-get clean
 
 RUN pip3 install rtichoke
