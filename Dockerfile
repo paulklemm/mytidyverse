@@ -1,7 +1,7 @@
 FROM rocker/tidyverse
 
 RUN apt-get -qq update && \
-  apt-get -qy install \
+  && DEBIAN_FRONTEND=noninteractive apt-get -qy install \
   python3-pip \
   # Required for ggraph
   libudunits2-dev \
