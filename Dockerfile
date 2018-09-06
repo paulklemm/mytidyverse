@@ -1,14 +1,24 @@
-FROM rocker/tidyverse
+FROM r-base
 
 RUN apt-get -qq update && \
   DEBIAN_FRONTEND=noninteractive apt-get -qy install \
   python3-pip \
-  # Required for ggraph
-  libudunits2-dev \
   # X11 Window system
   xorg \
   openbox \
+  # ggraph dependency (required for clusterProfiler)
+  libudunits2-dev \
+  # XML2 dependency (required for tidyverse)
+  libxml2-dev \
+  # httr dependency (required for tidyverse)
+  libssl-dev \
+  # curl dependency (required for tidyverse)
+  libcurl4-openssl-dev \
+  # Being able to use the `R` documentation
+  less \
   && apt-get clean
+
+RUN Rscript -e 'install.packages(c("tidyverse", "devtools", "roxygen2", "ggrepel")); source("https://bioconductor.org/biocLite.R"); biocLite(c("biomaRt", "clusterProfiler"), suppressUpdates=TRUE, suppressAutoUpdate = TRUE)'
 
 RUN pip3 install rtichoke
 
