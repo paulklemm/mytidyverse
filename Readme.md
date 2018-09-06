@@ -1,6 +1,6 @@
 # Custom Tidyverse Docker Image
 
-My development `tidyverse` image is based on [rocker/tidyverse](https://hub.docker.com/r/rocker/tidyverse/).
+My development `tidyverse` image is based on [r-base](https://hub.docker.com/_/r-base/).
 
 It adds:
 
