@@ -16,6 +16,7 @@ RUN apt-get -qq update && \
   libcurl4-openssl-dev \
   # Being able to use the `R` documentation
   less \
+  git \
   && apt-get clean
 
 RUN Rscript -e 'install.packages(c("tidyverse", "devtools", "roxygen2", "ggrepel", "packrat")); source("https://bioconductor.org/biocLite.R"); biocLite(c("biomaRt", "clusterProfiler"), suppressUpdates=TRUE, suppressAutoUpdate = TRUE)'
