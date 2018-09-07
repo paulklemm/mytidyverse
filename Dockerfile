@@ -19,7 +19,7 @@ RUN apt-get -qq update && \
   git \
   && apt-get clean
 
-RUN Rscript -e 'install.packages(c("tidyverse", "devtools", "roxygen2", "ggrepel", "packrat")); source("https://bioconductor.org/biocLite.R"); biocLite(c("biomaRt", "clusterProfiler", "usethis", "WriteXLS"), suppressUpdates=TRUE, suppressAutoUpdate = TRUE)'
+RUN Rscript -e 'install.packages(c("tidyverse", "devtools", "roxygen2", "ggrepel", "packrat")); source("https://bioconductor.org/biocLite.R"); biocLite(c("biomaRt", "clusterProfiler", "usethis", "WriteXLS", "rmarkdown"), suppressUpdates=TRUE, suppressAutoUpdate = TRUE)'
 
 RUN pip3 install rtichoke
 
