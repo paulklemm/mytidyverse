@@ -20,7 +20,7 @@ RUN apt-get -qq update && \
   pandoc \
   && apt-get clean
 
-RUN Rscript -e 'install.packages(c("tidyverse", "devtools", "roxygen2", "ggrepel", "packrat")); source("https://bioconductor.org/biocLite.R"); biocLite(c("biomaRt", "clusterProfiler", "usethis", "WriteXLS"), suppressUpdates=TRUE, suppressAutoUpdate = TRUE)'
+RUN Rscript -e 'install.packages(c("tidyverse", "devtools", "roxygen2", "ggrepel", "packrat")); source("https://bioconductor.org/biocLite.R"); biocLite(c("biomaRt", "clusterProfiler", "usethis", "WriteXLS", "here"), suppressUpdates=TRUE, suppressAutoUpdate = TRUE)'
 
 RUN pip3 install rtichoke
 
