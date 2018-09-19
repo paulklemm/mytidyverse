@@ -14,13 +14,15 @@ RUN apt-get -qq update && \
   libssl-dev \
   # curl dependency (required for tidyverse)
   libcurl4-openssl-dev \
+  # svglite dependency (required for svg rmarkdown outout)
+  libcairo2-dev \
   # Being able to use the `R` documentation
   less \
   git \
   pandoc \
   && apt-get clean
 
-RUN Rscript -e 'install.packages(c("tidyverse", "devtools", "roxygen2", "ggrepel", "packrat", "usethis", "WriteXLS", "here", "plotly")); source("https://bioconductor.org/biocLite.R"); biocLite(c("biomaRt", "clusterProfiler"), suppressUpdates=TRUE, suppressAutoUpdate = TRUE)'
+RUN Rscript -e 'install.packages(c("tidyverse", "devtools", "roxygen2", "ggrepel", "packrat", "usethis", "WriteXLS", "here", "plotly", "svglite")); source("https://bioconductor.org/biocLite.R"); biocLite(c("biomaRt", "clusterProfiler"), suppressUpdates=TRUE, suppressAutoUpdate = TRUE)'
 
 RUN pip3 install rtichoke
 
