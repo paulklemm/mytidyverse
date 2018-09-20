@@ -18,6 +18,8 @@ RUN apt-get -qq update && \
   libcairo2-dev \
   # Being able to use the `R` documentation
   less \
+  # Being able to open plotly plots
+  firefox \
   git \
   pandoc \
   && apt-get clean
