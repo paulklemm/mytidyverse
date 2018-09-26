@@ -19,6 +19,7 @@ RUN apt-get -qq update && \
   # Being able to use the `R` documentation
   less \
   # Required for rjava
+  default-jdk \
   r-cran-rjava \
   # Being able to open plotly plots
   firefox \
