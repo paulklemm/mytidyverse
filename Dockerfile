@@ -33,9 +33,3 @@ RUN R CMD javareconf
 RUN Rscript -e 'install.packages(c("tidyverse", "devtools", "roxygen2", "ggrepel", "packrat", "usethis", "WriteXLS", "here", "plotly", "svglite", "languageserver", "flexdashboard", "DT", "rJava"), repos = "http://cran.uni-muenster.de/"); source("https://bioconductor.org/biocLite.R"); biocLite(c("biomaRt", "clusterProfiler"), suppressUpdates=TRUE, suppressAutoUpdate = TRUE); devtools::install_github("rstudio/radix")'
 
 RUN pip3 install rtichoke
-
-# Clone my .Rprofile https://gist.github.com/paulklemm/920bb2ee5d886ffe7a9fb743156f875d
-RUN \
-  git clone https://gist.github.com/920bb2ee5d886ffe7a9fb743156f875d.git && \
-  cp 920bb2ee5d886ffe7a9fb743156f875d/.Rprofile ~/ && \
-  rm -rf 920bb2ee5d886ffe7a9fb743156f875d
