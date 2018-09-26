@@ -27,6 +27,9 @@ RUN apt-get -qq update && \
   pandoc \
   && apt-get clean
 
+# Configure java for R
+RUN R CMD javareconf
+
 RUN Rscript -e 'install.packages(c("tidyverse", "devtools", "roxygen2", "ggrepel", "packrat", "usethis", "WriteXLS", "here", "plotly", "svglite", "languageserver", "flexdashboard", "DT", "rJava"), repos = "http://cran.uni-muenster.de/"); source("https://bioconductor.org/biocLite.R"); biocLite(c("biomaRt", "clusterProfiler"), suppressUpdates=TRUE, suppressAutoUpdate = TRUE); devtools::install_github("rstudio/radix")'
 
 RUN pip3 install rtichoke
