@@ -1,4 +1,4 @@
-FROM paulklemm/r-base-versioned:3.5.1
+FROM r-base:3.5.1
 
 RUN apt-get -qq update && \
   DEBIAN_FRONTEND=noninteractive apt-get -qy install \
