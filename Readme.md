@@ -2,6 +2,8 @@
 
 My development `tidyverse` image is based on [r-base](https://hub.docker.com/_/r-base/).
 
+You can start a shiny server using `shiny-server.sh`. For details, check the [rocker/shiny](https://github.com/rocker-org/shiny) repo.
+
 It adds:
 
 - [rtichoke](https://github.com/randy3k/rtichoke) as `R` console replacement
