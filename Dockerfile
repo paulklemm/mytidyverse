@@ -22,7 +22,8 @@ RUN apt-get -qq update && \
   default-jdk \
   r-cran-rjava \
   # Being able to open plotly plots
-  firefox \
+  # Currently firefox cannot be installed for some weird reason. Used the hack below for it
+  # firefox \
   git \
   # Shiny requirements
   pandoc \
@@ -34,6 +35,9 @@ RUN apt-get -qq update && \
   # Visidata requirements
   man \
   && apt-get clean
+
+# HACK for installing firefox
+RUN DEBIAN_FRONTEND=noninteractive apt-get -qy install -t sid firefox
 
 # Install Visidata
 RUN pip3 install PyYAML pypng requests psycopg2 openpyxl xlrd h5py fonttools mapbox lxml xport sas7bdat pandas pyshp python-dateutil visidata
