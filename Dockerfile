@@ -31,7 +31,12 @@ RUN apt-get -qq update && \
   gdebi-core \
   libxt-dev \
   wget \
+  # Visidata requirements
+  man \
   && apt-get clean
+
+# Install Visidata
+RUN pip3 install PyYAML pypng requests psycopg2 openpyxl xlrd h5py fonttools mapbox lxml xport sas7bdat pandas pyshp python-dateutil visidata
 
 # Configure java for R
 RUN R CMD javareconf
