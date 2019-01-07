@@ -7,6 +7,8 @@
   - [CRAN](#cran)
   - [Bioconductor](#bioconductor)
   - [GitHub](#github)
+- [Changelog](#changelog)
+  - [2019-01-07](#2019-01-07)
 
 <!-- /TOC -->
 
@@ -55,3 +57,9 @@ It contains the following packages.
 - [paulklemm/rmyknife](https://github.com/paulklemm/rmyknife)
 - [paulklemm/peekr](https://github.com/paulklemm/peekr)
 - [paulklemm/rvisidata](https://github.com/paulklemm/rvisidata)
+
+## Changelog
+
+### 2019-01-07
+
+- Switch to `r-base:3.5.2` as base image
