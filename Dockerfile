@@ -48,13 +48,14 @@ RUN R CMD javareconf
 RUN Rscript -e 'install.packages(c("tidyverse", "devtools", "roxygen2", "ggrepel", "packrat", "usethis", "WriteXLS", "here", "plotly", "svglite", "languageserver", "flexdashboard", "DT", "rJava"), repos = "http://cran.uni-muenster.de/"); source("https://bioconductor.org/biocLite.R"); biocLite(c("biomaRt", "clusterProfiler"), suppressUpdates=TRUE, suppressAutoUpdate = TRUE); devtools::install_github("rstudio/radix"); devtools::install_github("paulklemm/mygo"); devtools::install_github("paulklemm/rmyknife"); devtools::install_github("paulklemm/peekr"); devtools::install_github("paulklemm/rvisidata");'
 
 # Download and install shiny server. This code is from the rocker/shiny container https://github.com/rocker-org/shiny
+# The only thing I changed is setting the repo to the Uni Münster mirror
 RUN wget --no-verbose https://download3.rstudio.org/ubuntu-14.04/x86_64/VERSION -O "version.txt" && \
   VERSION=$(cat version.txt)  && \
   wget --no-verbose "https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-$VERSION-amd64.deb" -O ss-latest.deb && \
   gdebi -n ss-latest.deb && \
   rm -f version.txt ss-latest.deb && \
   . /etc/environment && \
-  R -e "install.packages(c('shiny'), repos='$MRAN')" && \
+  R -e "install.packages(c('shiny', 'rmarkdown'), repos='http://cran.uni-muenster.de/')" && \
   cp -R /usr/local/lib/R/site-library/shiny/examples/* /srv/shiny-server/
 
 # This may be not required since we will start it as singularity image anyway
