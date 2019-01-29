@@ -15,7 +15,7 @@ RUN apt-get -qq update && \
   # curl dependency (required for tidyverse)
   libcurl4-openssl-dev \
   # svglite dependency (required for svg rmarkdown outout)
-  libcairo2-dev \
+  # libcairo2-dev \
   # Being able to use the `R` documentation
   less \
   # Required for rjava
