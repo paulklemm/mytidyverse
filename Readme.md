@@ -8,6 +8,7 @@
   - [Bioconductor](#bioconductor)
   - [GitHub](#github)
 - [Changelog](#changelog)
+  - [2019-01-29](#2019-01-29)
   - [2019-01-07](#2019-01-07)
 
 <!-- /TOC -->
@@ -18,7 +19,7 @@
 
 It adds:
 
-- [rtichoke](https://github.com/randy3k/rtichoke) as `R` console replacement
+- [radian](https://github.com/randy3k/radian) as `R` console replacement
 - [shiny server](https://hub.docker.com/r/rocker/shiny)
   - You can start a shiny server using `shiny-server.sh`
   - For details, check the [rocker/shiny](https://github.com/rocker-org/shiny) repo
@@ -44,6 +45,7 @@ It contains the following packages.
 - `flexdashboard`
 - `DT`
 - `rJava`
+- `Seurat`
 
 ### Bioconductor
 
@@ -59,6 +61,11 @@ It contains the following packages.
 - [paulklemm/rvisidata](https://github.com/paulklemm/rvisidata)
 
 ## Changelog
+
+### 2019-01-29
+
+- Add [Seurat](https://cran.r-project.org/web/packages/Seurat/index.html) package for Single Cell RNA-Seq analysis
+- `rtichoke` was renamed to `radian`
 
 ### 2019-01-07
 
