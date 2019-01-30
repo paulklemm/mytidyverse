@@ -1,5 +1,7 @@
 # 🐳 𝓡 Custom Tidyverse Docker Image
 
+---
+
 <!-- TOC depthFrom:2 -->
 
 - [Installed Dependencies](#installed-dependencies)
@@ -7,11 +9,14 @@
   - [CRAN](#cran)
   - [Bioconductor](#bioconductor)
   - [GitHub](#github)
+- [Build the Image](#build-the-image)
 - [Changelog](#changelog)
   - [2019-01-29](#2019-01-29)
   - [2019-01-07](#2019-01-07)
 
 <!-- /TOC -->
+
+---
 
 [My](https://github.com/paulklemm/) development `tidyverse` image is based on [r-base](https://hub.docker.com/_/r-base/).
 
@@ -59,6 +64,17 @@ It contains the following packages.
 - [paulklemm/rmyknife](https://github.com/paulklemm/rmyknife)
 - [paulklemm/peekr](https://github.com/paulklemm/peekr)
 - [paulklemm/rvisidata](https://github.com/paulklemm/rvisidata)
+
+## Build the Image
+
+The image takes longer than dockers two-hour limit for building. That's why beginning with tag `r-base:3.5.2-1` we upload locally build images to the docker hub.
+
+```bash
+docker login
+docker build --no-cache -t mytidyverse .
+docker tag mytidyverse paulklemm/mytidyverse:base-3.5.2-1
+docker push paulklemm/mytidyverse:base-3.5.2-1
+```
 
 ## Changelog
 
