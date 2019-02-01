@@ -60,6 +60,7 @@ It contains the following packages.
 ### GitHub
 
 - [rstudio/radix](https://github.com/rstudio/radix)
+- [yihui/xaringan](https://github.com/yihui/xaringan)
 - [paulklemm/mygo](https://github.com/paulklemm/mygo)
 - [paulklemm/rmyknife](https://github.com/paulklemm/rmyknife)
 - [paulklemm/peekr](https://github.com/paulklemm/peekr)

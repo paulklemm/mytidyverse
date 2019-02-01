@@ -47,7 +47,7 @@ RUN pip3 install PyYAML pypng requests psycopg2 openpyxl xlrd h5py fonttools map
 # Configure java for R
 RUN R CMD javareconf
 
-RUN Rscript -e 'install.packages(c("tidyverse", "devtools", "roxygen2", "ggrepel", "packrat", "usethis", "WriteXLS", "here", "plotly", "svglite", "languageserver", "flexdashboard", "DT", "rJava", "Seurat"), repos = "http://cran.uni-muenster.de/"); source("https://bioconductor.org/biocLite.R"); biocLite(c("biomaRt", "clusterProfiler"), suppressUpdates=TRUE, suppressAutoUpdate = TRUE); devtools::install_github("rstudio/radix"); devtools::install_github("paulklemm/mygo"); devtools::install_github("paulklemm/rmyknife"); devtools::install_github("paulklemm/peekr"); devtools::install_github("paulklemm/rvisidata");'
+RUN Rscript -e 'install.packages(c("tidyverse", "devtools", "roxygen2", "ggrepel", "packrat", "usethis", "WriteXLS", "here", "plotly", "svglite", "languageserver", "flexdashboard", "DT", "rJava", "Seurat"), repos = "http://cran.uni-muenster.de/"); source("https://bioconductor.org/biocLite.R"); biocLite(c("biomaRt", "clusterProfiler"), suppressUpdates=TRUE, suppressAutoUpdate = TRUE); devtools::install_github("rstudio/radix"); remotes::install_github("yihui/xaringan"); devtools::install_github("paulklemm/mygo"); devtools::install_github("paulklemm/rmyknife"); devtools::install_github("paulklemm/peekr"); devtools::install_github("paulklemm/rvisidata");'
 
 # Download and install shiny server. This code is from the rocker/shiny container https://github.com/rocker-org/shiny
 # The only thing I changed is setting the repo to the Uni Münster mirror
