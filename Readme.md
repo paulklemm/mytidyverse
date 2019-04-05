@@ -11,8 +11,6 @@
   - [GitHub](#github)
 - [Build the Image](#build-the-image)
 - [Changelog](#changelog)
-  - [2019-01-29](#2019-01-29)
-  - [2019-01-07](#2019-01-07)
 
 <!-- /TOC -->
 
@@ -79,11 +77,10 @@ docker push paulklemm/mytidyverse:base-3.5.2-1
 
 ## Changelog
 
-### 2019-01-29
-
-- Add [Seurat](https://cran.r-project.org/web/packages/Seurat/index.html) package for Single Cell RNA-Seq analysis
-- `rtichoke` was renamed to `radian`
-
-### 2019-01-07
-
-- Switch to `r-base:3.5.2` as base image
+- **2019-04-05**
+  - Bump base image to `r-base:3.5.3`
+- **2019-01-29**
+  - Add [Seurat](https://cran.r-project.org/web/packages/Seurat/index.html) package for Single Cell RNA-Seq analysis
+  - `rtichoke` was renamed to `radian`
+- **2019-01-07**
+  - Switch to `r-base:3.5.2` as base image

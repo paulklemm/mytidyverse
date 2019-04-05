@@ -1,4 +1,4 @@
-FROM r-base:3.5.2
+FROM r-base:3.5.3
 
 RUN apt-get -qq update && \
   DEBIAN_FRONTEND=noninteractive apt-get -qy install \
