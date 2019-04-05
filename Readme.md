@@ -68,6 +68,8 @@ It contains the following packages.
 
 The image takes longer than dockers two-hour limit for building. That's why beginning with tag `r-base:3.5.2-1` we upload locally build images to the docker hub.
 
+Run the building process manually using the following code (adapting the version).
+
 ```bash
 docker login
 docker build --no-cache -t mytidyverse .
@@ -75,10 +77,17 @@ docker tag mytidyverse paulklemm/mytidyverse:base-3.5.2-1
 docker push paulklemm/mytidyverse:base-3.5.2-1
 ```
 
+You can also use the makefile.
+
+```bash
+make VERSION=3.5.2-1
+```
+
 ## Changelog
 
 - **2019-04-05**
   - Bump base image to `r-base:3.5.3`
+  - Add makefile
 - **2019-01-29**
   - Add [Seurat](https://cran.r-project.org/web/packages/Seurat/index.html) package for Single Cell RNA-Seq analysis
   - `rtichoke` was renamed to `radian`
