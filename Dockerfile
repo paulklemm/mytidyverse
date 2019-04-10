@@ -14,23 +14,24 @@ RUN apt-get -qq update && \
   libssl-dev \
   # curl dependency (required for tidyverse)
   libcurl4-openssl-dev \
-  # svglite dependency (required for svg rmarkdown outout)
-  # libcairo2-dev \
+  # svglite dependency (required for svg rmarkdown output)
+  libcairo2-dev \
   # Being able to use the `R` documentation
   less \
   # Required for rjava
   default-jdk \
   r-cran-rjava \
   # Being able to open plotly plots
-  # Currently firefox cannot be installed for some weird reason. Used the hack below for it
-  # firefox \
+  firefox \
   git \
   # Shiny requirements
   pandoc \
   pandoc-citeproc \
   sudo \
   gdebi-core \
-  libxt-dev \
+  # HACK: 3.5.3-1: libxt-dev could not be installed because of a dependency error, we for now install libxt6 and hope it works as well
+  libxt6 \
+  # libxt-dev \
   wget \
   # Visidata requirements
   man \
@@ -39,15 +40,54 @@ RUN apt-get -qq update && \
   && apt-get clean
 
 # HACK for installing firefox
-RUN DEBIAN_FRONTEND=noninteractive apt-get -qy install -t sid firefox
+# RUN DEBIAN_FRONTEND=noninteractive apt-get -qy install -t sid firefox
 
-# Install Visidata
-RUN pip3 install PyYAML pypng requests psycopg2 openpyxl xlrd h5py fonttools mapbox lxml xport sas7bdat pandas pyshp python-dateutil visidata
+# Install Visidata. Check https://github.com/saulpw/visidata/blob/stable/requirements.txt
+RUN pip3 install \ 
+  # dta (Stata)
+  pandas \
+  # http
+  requests \
+  # html/xml
+  lxml \
+  # xlsx
+  openpyxl \
+  # xls
+  xlrd \
+  # hdf5
+  h5py \
+  # postgres
+  # HACK: 3.5.3-1: Does not work, so we excluded it
+  # psycopg2 \
+  # shapefiles
+  pyshp \
+  # mbtiles
+  mapbox-vector-tile \
+  # png
+  pypng \
+  # ttf/otf
+  fonttools \
+  # sas7bdat (SAS)
+  sas7bdat \
+  # xpt (SAS)
+  xport \
+  # sav (SPSS)
+  savReaderWriter \
+  # yaml/yml
+  PyYAML \
+  # pcap
+  dpkt \
+  # pcap
+  dnslib \
+  # graphviz
+  namestand \
+  python-dateutil \
+  visidata
 
 # Configure java for R
 RUN R CMD javareconf
 
-RUN Rscript -e 'install.packages(c("tidyverse", "devtools", "roxygen2", "ggrepel", "packrat", "usethis", "WriteXLS", "here", "plotly", "svglite", "languageserver", "flexdashboard", "DT", "rJava", "Seurat"), repos = "http://cran.uni-muenster.de/"); source("https://bioconductor.org/biocLite.R"); biocLite(c("biomaRt", "clusterProfiler"), suppressUpdates=TRUE, suppressAutoUpdate = TRUE); devtools::install_github("rstudio/radix"); remotes::install_github("yihui/xaringan"); devtools::install_github("paulklemm/mygo"); devtools::install_github("paulklemm/rmyknife"); devtools::install_github("paulklemm/peekr"); devtools::install_github("paulklemm/rvisidata");'
+RUN Rscript -e 'install.packages(c("devtools", "tidyverse", "roxygen2", "ggrepel", "packrat", "usethis", "WriteXLS", "here", "plotly", "svglite", "languageserver", "flexdashboard", "DT", "rJava", "Seurat"), repos = "http://cran.uni-muenster.de/"); install.packages("BiocManager"); BiocManager::install(c("biomaRt", "clusterProfiler"), upate=FALSE, ask = FALSE); devtools::install_github("rstudio/distill"); remotes::install_github("yihui/xaringan"); devtools::install_github("paulklemm/mygo"); devtools::install_github("paulklemm/rmyknife"); devtools::install_github("paulklemm/peekr"); devtools::install_github("paulklemm/rvisidata");'
 
 # Download and install shiny server. This code is from the rocker/shiny container https://github.com/rocker-org/shiny
 # The only thing I changed is setting the repo to the Uni Münster mirror

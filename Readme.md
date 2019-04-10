@@ -57,7 +57,7 @@ It contains the following packages.
 
 ### GitHub
 
-- [rstudio/radix](https://github.com/rstudio/radix)
+- [rstudio/distill](https://github.com/rstudio/distill)
 - [yihui/xaringan](https://github.com/yihui/xaringan)
 - [paulklemm/mygo](https://github.com/paulklemm/mygo)
 - [paulklemm/rmyknife](https://github.com/paulklemm/rmyknife)
@@ -85,6 +85,8 @@ make VERSION=3.5.2-1
 
 ## Changelog
 
+- **2019-04-10**
+  - Radix package was renamed to distill
 - **2019-04-05**
   - Bump base image to `r-base:3.5.3`
   - Add makefile
