@@ -85,6 +85,9 @@ make VERSION=3.5.2-1
 
 ## Changelog
 
+- **2019-09-02**
+  - Fix broken Uni-Muenster CRAN link
+  - Update default variables to point to r-base 3.6.1
 - **2019-04-10**
   - Radix package was renamed to distill
 - **2019-04-05**

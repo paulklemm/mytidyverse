@@ -1,4 +1,4 @@
-FROM r-base:3.5.3
+FROM r-base:3.6.1
 
 RUN apt-get -qq update && \
   DEBIAN_FRONTEND=noninteractive apt-get -qy install \
@@ -87,7 +87,7 @@ RUN pip3 install \
 # Configure java for R
 RUN R CMD javareconf
 
-RUN Rscript -e 'install.packages(c("devtools", "tidyverse", "roxygen2", "ggrepel", "packrat", "usethis", "WriteXLS", "here", "plotly", "svglite", "languageserver", "flexdashboard", "DT", "rJava", "Seurat"), repos = "http://cran.uni-muenster.de/"); install.packages("BiocManager", repos = "http://cran.uni-muenster.de/"); BiocManager::install(c("biomaRt", "clusterProfiler"), upate=FALSE, ask = FALSE); devtools::install_github("rstudio/distill"); remotes::install_github("yihui/xaringan"); devtools::install_github("paulklemm/mygo"); devtools::install_github("paulklemm/rmyknife"); devtools::install_github("paulklemm/peekr"); devtools::install_github("paulklemm/rvisidata");'
+RUN Rscript -e 'install.packages(c("devtools", "tidyverse", "roxygen2", "ggrepel", "packrat", "usethis", "WriteXLS", "here", "plotly", "svglite", "languageserver", "flexdashboard", "DT", "rJava", "Seurat"), repos = "http://cloud.r-project.org/"); install.packages("BiocManager", repos = "http://cloud.r-project.org/"); BiocManager::install(c("biomaRt", "clusterProfiler"), upate=FALSE, ask = FALSE); devtools::install_github("rstudio/distill"); remotes::install_github("yihui/xaringan"); devtools::install_github("paulklemm/mygo"); devtools::install_github("paulklemm/rmyknife"); devtools::install_github("paulklemm/peekr"); devtools::install_github("paulklemm/rvisidata");'
 
 # Download and install shiny server. This code is from the rocker/shiny container https://github.com/rocker-org/shiny
 # The only thing I changed is setting the repo to the Uni Münster mirror
@@ -107,7 +107,7 @@ RUN wget --no-verbose "https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-s
   gdebi -n ss-latest.deb && \
   rm -f ss-latest.deb && \
   . /etc/environment && \
-  R -e "install.packages(c('shiny', 'rmarkdown'), repos='http://cran.uni-muenster.de/')" && \
+  R -e "install.packages(c('shiny', 'rmarkdown'), repos='http://cloud.r-project.org/')" && \
   cp -R /usr/local/lib/R/site-library/shiny/examples/* /srv/shiny-server/
 
 # This may be not required since we will start it as singularity image anyway
