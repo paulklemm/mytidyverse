@@ -52,8 +52,9 @@ It contains the following packages.
 
 ### Bioconductor
 
-- `biomaRt`
-- `clusterProfiler`
+- `biomaRt`: Interface to Ensembl Biomart database
+- `clusterProfiler`: GO-term enrichment analysis
+- `DESeq2`: Differential gene expression analysis
 
 ### GitHub
 

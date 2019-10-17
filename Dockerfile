@@ -87,7 +87,7 @@ RUN pip3 install \
 # Configure java for R
 RUN R CMD javareconf
 
-RUN Rscript -e 'install.packages(c("devtools", "tidyverse", "roxygen2", "ggrepel", "packrat", "usethis", "WriteXLS", "here", "plotly", "svglite", "languageserver", "flexdashboard", "DT", "rJava", "Seurat"), repos = "http://cloud.r-project.org/"); install.packages("BiocManager", repos = "http://cloud.r-project.org/"); BiocManager::install(c("biomaRt", "clusterProfiler"), upate=FALSE, ask = FALSE); devtools::install_github("rstudio/distill"); remotes::install_github("yihui/xaringan"); devtools::install_github("paulklemm/mygo"); devtools::install_github("paulklemm/rmyknife"); devtools::install_github("paulklemm/peekr"); devtools::install_github("paulklemm/rvisidata");'
+RUN Rscript -e 'install.packages(c("devtools", "tidyverse", "roxygen2", "ggrepel", "packrat", "usethis", "WriteXLS", "here", "plotly", "svglite", "languageserver", "flexdashboard", "DT", "rJava", "Seurat"), repos = "http://cloud.r-project.org/"); install.packages("BiocManager", repos = "http://cloud.r-project.org/"); BiocManager::install(c("biomaRt", "clusterProfiler", "DESeq2"), upate=FALSE, ask = FALSE); devtools::install_github("rstudio/distill"); remotes::install_github("yihui/xaringan"); devtools::install_github("paulklemm/mygo"); devtools::install_github("paulklemm/rmyknife"); devtools::install_github("paulklemm/peekr"); devtools::install_github("paulklemm/rvisidata");'
 
 # Download and install shiny server. This code is from the rocker/shiny container https://github.com/rocker-org/shiny
 # The only thing I changed is setting the repo to the Uni Münster mirror
