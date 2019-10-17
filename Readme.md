@@ -86,16 +86,18 @@ make VERSION=3.6.1-2
 
 ## Changelog
 
-- **2019-09-02**
+- *2019-10-17*
+  - Add DESeq2
+- *2019-09-02*
   - Fix broken Uni-Muenster CRAN link
   - Update default variables to point to r-base 3.6.1
-- **2019-04-10**
+- *2019-04-10*
   - Radix package was renamed to distill
-- **2019-04-05**
+- *2019-04-05*
   - Bump base image to `r-base:3.5.3`
   - Add makefile
-- **2019-01-29**
+- *2019-01-29*
   - Add [Seurat](https://cran.r-project.org/web/packages/Seurat/index.html) package for Single Cell RNA-Seq analysis
   - `rtichoke` was renamed to `radian`
-- **2019-01-07**
+- *2019-01-07*
   - Switch to `r-base:3.5.2` as base image
