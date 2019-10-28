@@ -49,6 +49,9 @@ It contains the following packages.
 - `DT`
 - `rJava`
 - `Seurat`
+- `styler`
+- `knitr`
+- `rmarkdown`
 
 ### Bioconductor
 
@@ -86,6 +89,8 @@ make VERSION=3.6.1-2
 
 ## Changelog
 
+- *2019-10-28*
+  - Add `styler`, `knitr` and `rmarkdown`
 - *2019-10-17*
   - Add DESeq2
 - *2019-09-02*
