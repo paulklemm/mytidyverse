@@ -37,6 +37,8 @@ RUN apt-get -qq update && \
   man \
   # Seurat requirements (Single Cell RNASeq package)
   libhdf5-dev \
+  # Pigz for parallel gzip file reading and writing. See https://cloud.r-project.org/web/packages/vroom/vignettes/vroom.html and https://www.jimhester.com/post/2019-09-26-pipe-connections/
+  pigz \
   && apt-get clean
 
 # HACK for installing firefox
