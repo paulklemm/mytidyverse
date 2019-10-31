@@ -1,7 +1,8 @@
 FROM r-base:3.6.1
 
 RUN apt-get -qq update && \
-  DEBIAN_FRONTEND=noninteractive apt-get -qy install \
+  # fix-broken: https://askubuntu.com/questions/1077298/depends-libnss3-23-26-but-23-21-1ubuntu4-is-to-be-installed
+  DEBIAN_FRONTEND=noninteractive apt-get -qy install -f \
   python3-pip \
   # X11 Window system
   xorg \
@@ -44,7 +45,7 @@ RUN apt-get -qq update && \
   && apt-get clean
 
 # HACK for installing firefox
-RUN DEBIAN_FRONTEND=noninteractive apt-get -qy install -t sid firefox
+# RUN DEBIAN_FRONTEND=noninteractive apt-get -qy install -t sid firefox
 
 # Install Visidata. Check https://github.com/saulpw/visidata/blob/stable/requirements.txt
 RUN pip3 install \ 
