@@ -78,14 +78,14 @@ Run the building process manually using the following code (adapting the version
 ```bash
 docker login
 docker build --no-cache -t mytidyverse .
-docker tag mytidyverse paulklemm/mytidyverse:base-3.6.1-2
-docker push paulklemm/mytidyverse:base-3.6.1-2
+docker tag mytidyverse paulklemm/mytidyverse:base-3.6.1-3
+docker push paulklemm/mytidyverse:base-3.6.1-3
 ```
 
 You can also use the makefile.
 
 ```bash
-make VERSION=3.6.1-2
+make VERSION=3.6.1-3
 ```
 
 ## Changelog

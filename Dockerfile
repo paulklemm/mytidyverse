@@ -86,8 +86,14 @@ RUN pip3 install \
   dnslib \
   # graphviz
   namestand \
-  python-dateutil \
-  visidata
+  python-dateutil
+
+# Visidata 2 pre-release
+# Installing with pip3 from the branch does not work. We therefore install it from a local repo
+RUN git clone --single-branch --branch v2.-1 git://github.com/saulpw/visidata && \
+  pip3 install -e visidata && \
+  # Remove local repo
+  rm -r visidata
 
 # Configure java for R
 RUN R CMD javareconf
