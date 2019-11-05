@@ -90,6 +90,9 @@ make VERSION=3.6.1-3
 
 ## Changelog
 
+- *2019-11-05*
+  - Add visidata 2 pre-release
+  - Add [Fix GenomicAlignments error #3](https://github.com/paulklemm/mytidyverse/issues/3)
 - *2019-10-28*
   - Add `styler`, `knitr`, `rmarkdown` and `vroom`
 - *2019-10-17*
