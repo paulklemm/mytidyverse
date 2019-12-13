@@ -90,6 +90,8 @@ make VERSION=3.6.1-4
 
 ## Changelog
 
+- *2019-12-13*
+  - Added [Visidata not installed properly #4](https://github.com/paulklemm/mytidyverse/issues/4)
 - *2019-12-12*
   - Add hack for fixing issue [Fix GenomicAlignments error #3](https://github.com/paulklemm/mytidyverse/issues/3)
 - *2019-11-05*
