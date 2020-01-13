@@ -100,7 +100,7 @@ RUN R CMD javareconf
 
 # Fix GenomicAlignments Install error. See https://github.com/paulklemm/mytidyverse/issues/3
 RUN Rscript -e 'install.packages("BiocManager", repos = "http://cloud.r-project.org/"); BiocManager::install("GenomicAlignments")'
-RUN Rscript -e 'install.packages(c("devtools", "tidyverse", "roxygen2", "ggrepel", "packrat", "usethis", "WriteXLS", "plotly", "svglite", "languageserver", "flexdashboard", "DT", "rJava", "Seurat", "styler", "knitr", "rmarkdown", "vroom"), repos = "http://cloud.r-project.org/"); BiocManager::install(c("biomaRt", "clusterProfiler", "DESeq2"), upate=FALSE, ask = FALSE); devtools::install_github("rstudio/distill"); remotes::install_github("yihui/xaringan"); devtools::install_github("paulklemm/mygo"); devtools::install_github("paulklemm/rmyknife"); devtools::install_github("paulklemm/peekr"); devtools::install_github("paulklemm/rvisidata");'
+RUN Rscript -e 'install.packages(c("devtools", "tidyverse", "roxygen2", "ggrepel", "packrat", "usethis", "WriteXLS", "plotly", "svglite", "languageserver", "flexdashboard", "DT", "rJava", "Seurat", "styler", "knitr", "rmarkdown", "vroom", "tidylog"), repos = "http://cloud.r-project.org/"); BiocManager::install(c("biomaRt", "clusterProfiler", "DESeq2"), upate=FALSE, ask = FALSE); devtools::install_github("rstudio/distill"); remotes::install_github("yihui/xaringan"); devtools::install_github("paulklemm/mygo"); devtools::install_github("paulklemm/rmyknife"); devtools::install_github("paulklemm/peekr"); devtools::install_github("paulklemm/rvisidata");'
 
 # Download and install shiny server. This code is from the rocker/shiny container https://github.com/rocker-org/shiny
 # The only thing I changed is setting the repo to the Uni Münster mirror

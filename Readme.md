@@ -53,6 +53,7 @@ It contains the following packages.
 - `knitr`
 - `rmarkdown`
 - `vroom`
+- `tidylog`
 
 ### Bioconductor
 
@@ -90,6 +91,8 @@ make VERSION=3.6.1-4
 
 ## Changelog
 
+- *2020-01-13*
+  - Add [`tidlog`](https://github.com/elbersb/tidylog)
 - *2019-12-13*
   - Added [Visidata not installed properly #4](https://github.com/paulklemm/mytidyverse/issues/4)
 - *2019-12-12*
