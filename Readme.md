@@ -94,10 +94,11 @@ make VERSION=3.6.2-1
 - *2020-02-18*
   - Bump to `r-base:3.6.2`
   - Add [`renv`](https://rstudio.github.io/renv/)
+  - Add [`drake`](https://github.com/ropensci/drake)
 - *2020-01-13*
-  - Added [`tidlog`](https://github.com/elbersb/tidylog)
+  - Add [`tidlog`](https://github.com/elbersb/tidylog)
 - *2019-12-13*
-  - Added [Visidata not installed properly #4](https://github.com/paulklemm/mytidyverse/issues/4)
+  - Add [Visidata not installed properly #4](https://github.com/paulklemm/mytidyverse/issues/4)
 - *2019-12-12*
   - Add hack for fixing issue [Fix GenomicAlignments error #3](https://github.com/paulklemm/mytidyverse/issues/3)
 - *2019-11-05*
