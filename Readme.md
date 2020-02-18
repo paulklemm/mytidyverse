@@ -93,6 +93,7 @@ make VERSION=3.6.2-1
 
 - *2020-02-18*
   - Bump to `r-base:3.6.2`
+  - Add [`renv`](https://rstudio.github.io/renv/)
 - *2020-01-13*
   - Added [`tidlog`](https://github.com/elbersb/tidylog)
 - *2019-12-13*
