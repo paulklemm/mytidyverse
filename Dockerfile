@@ -1,4 +1,4 @@
-FROM r-base:3.6.1
+FROM r-base:3.6.2
 
 RUN apt-get -qq update && \
   # fix-broken: https://askubuntu.com/questions/1077298/depends-libnss3-23-26-but-23-21-1ubuntu4-is-to-be-installed
@@ -89,11 +89,7 @@ RUN pip3 install \
   python-dateutil
 
 # Visidata 2 pre-release
-# Installing with pip3 from the branch does not work. We therefore install it from a local repo
-RUN git clone --single-branch --branch v2.-1 git://github.com/saulpw/visidata && \
-  pip3 install -e visidata && \
-  # Remove local repo
-  rm -r visidata
+RUN pip3 install git+https://github.com/saulpw/visidata@v2.-2.1
 
 # Configure java for R
 RUN R CMD javareconf

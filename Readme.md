@@ -79,20 +79,22 @@ Run the building process manually using the following code (adapting the version
 ```bash
 docker login
 docker build --no-cache -t mytidyverse .
-docker tag mytidyverse paulklemm/mytidyverse:base-3.6.1-4
-docker push paulklemm/mytidyverse:base-3.6.1-4
+docker tag mytidyverse paulklemm/mytidyverse:base-3.6.2-1
+docker push paulklemm/mytidyverse:base-3.6.2-1
 ```
 
 You can also use the makefile.
 
 ```bash
-make VERSION=3.6.1-4
+make VERSION=3.6.2-1
 ```
 
 ## Changelog
 
+- *2020-02-18*
+  - Bump to `r-base:3.6.2`
 - *2020-01-13*
-  - Add [`tidlog`](https://github.com/elbersb/tidylog)
+  - Added [`tidlog`](https://github.com/elbersb/tidylog)
 - *2019-12-13*
   - Added [Visidata not installed properly #4](https://github.com/paulklemm/mytidyverse/issues/4)
 - *2019-12-12*
