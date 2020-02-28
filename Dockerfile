@@ -100,7 +100,7 @@ RUN Rscript -e 'install.packages("BiocManager", repos = "http://cloud.r-project.
 # Install CRAN R packages
 RUN Rscript -e 'install.packages(c("devtools", "tidyverse", "roxygen2", "ggrepel", "renv", "usethis", "WriteXLS", "plotly", "svglite", "languageserver", "flexdashboard", "DT", "rJava", "Seurat", "styler", "knitr", "rmarkdown", "vroom", "tidylog", "drake"), repos = "http://cloud.r-project.org/")'
 # Install Bioconductor R packages
-RUN Rscript -e 'BiocManager::install(c("biomaRt", "clusterProfiler", "DESeq2"), update = FALSE, ask = FALSE)'
+RUN Rscript -e 'BiocManager::install(c("biomaRt", "clusterProfiler", "DESeq2"), update = TRUE, ask = FALSE)'
 # Install GitHub R packages
 RUN Rscript -e 'remotes::install_github("yihui/xaringan"); devtools::install_github("paulklemm/rmyknife"); devtools::install_github("paulklemm/mygo"); devtools::install_github("paulklemm/rvisidata");'
 
