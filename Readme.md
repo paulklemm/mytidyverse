@@ -79,18 +79,22 @@ Run the building process manually using the following code (adapting the version
 ```bash
 docker login
 docker build --no-cache -t mytidyverse .
-docker tag mytidyverse paulklemm/mytidyverse:base-3.6.2-1
-docker push paulklemm/mytidyverse:base-3.6.2-1
+docker tag mytidyverse paulklemm/mytidyverse:base-3.6.3-1
+docker push paulklemm/mytidyverse:base-3.6.3-1
 ```
 
 You can also use the makefile.
 
 ```bash
-make VERSION=3.6.2-1
+make VERSION=3.6.3-1
 ```
 
 ## Changelog
 
+- *2020-04-09*
+  - Bump to `r-base:3.6.3`
+  - Remove all R packages
+  - Add standard shiny installation
 - *2020-02-18*
   - Bump to `r-base:3.6.2`
   - Add [`renv`](https://rstudio.github.io/renv/)

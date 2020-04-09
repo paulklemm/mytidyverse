@@ -1,4 +1,4 @@
-VERSION=3.6.2-1
+VERSION=3.6.3-1
 
 build:
 	docker login
