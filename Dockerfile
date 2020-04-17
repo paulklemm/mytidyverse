@@ -43,6 +43,8 @@ RUN apt-get -qq update && \
   pigz \
   # zstd. Recommended by Jim Hester. Check https://www.jimhester.com/post/2019-09-26-pipe-connections/. https://www.youtube.com/watch?time_continue=495&v=RYhwZW6ofbI
   zstd \
+  # Allow rvisidata to open a new tmux pane inside an existing tmux session
+  tmux \
   && apt-get clean
 
 # HACK for installing firefox
@@ -87,8 +89,6 @@ RUN pip3 install \
   dnslib \
   # graphviz
   namestand \
-  # Allow rvisidata to open a new tmux pane inside an existing tmux session
-  tmux \
   python-dateutil
 
 # Visidata 2 pre-release
