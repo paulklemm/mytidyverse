@@ -92,7 +92,7 @@ RUN pip3 install \
   python-dateutil
 
 # Visidata 2 pre-release
-RUN pip3 install git+https://github.com/saulpw/visidata@v2.-2.1
+RUN pip3 install git+https://github.com/saulpw/visidata@v2.-3.0
 
 # Configure java for R
 RUN R CMD javareconf
