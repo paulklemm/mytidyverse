@@ -5,10 +5,6 @@
 <!-- TOC depthFrom:2 -->
 
 - [Installed Dependencies](#installed-dependencies)
-- [Installed R packages](#installed-r-packages)
-  - [CRAN](#cran)
-  - [Bioconductor](#bioconductor)
-  - [GitHub](#github)
 - [Build the Image](#build-the-image)
 - [Changelog](#changelog)
 
@@ -27,52 +23,9 @@ It adds:
   - You can start a shiny server using `shiny-server.sh`
   - For details, check the [rocker/shiny](https://github.com/rocker-org/shiny) repo
 - [visidata](https://visidata.org/) for the [rvisidata](https://github.com/paulklemm/rvisidata) package
-
-## Installed R packages
-
-It contains the following packages.
-
-### CRAN
-
-- `tidyverse`
-- `devtools`
-- `roxygen2`
-- `ggrepel`
-- `packrat`
-- `usethis`
-- `WriteXLS`
-- `here`
-- `plotly`
-- `svglite`
-- `languageserver`
-- `flexdashboard`
-- `DT`
-- `rJava`
-- `Seurat`
-- `styler`
-- `knitr`
-- `rmarkdown`
-- `vroom`
-- `tidylog`
-
-### Bioconductor
-
-- `biomaRt`: Interface to Ensembl Biomart database
-- `clusterProfiler`: GO-term enrichment analysis
-- `DESeq2`: Differential gene expression analysis
-
-### GitHub
-
-- [rstudio/distill](https://github.com/rstudio/distill)
-- [yihui/xaringan](https://github.com/yihui/xaringan)
-- [paulklemm/mygo](https://github.com/paulklemm/mygo)
-- [paulklemm/rmyknife](https://github.com/paulklemm/rmyknife)
-- [paulklemm/peekr](https://github.com/paulklemm/peekr)
-- [paulklemm/rvisidata](https://github.com/paulklemm/rvisidata)
+- A whole bunch of libraries for a number of different R packages, mostly for bioinformatics analyses
 
 ## Build the Image
-
-The image takes longer than dockers two-hour limit for building. That's why beginning with tag `r-base:3.5.2-1` we upload locally build images to the docker hub.
 
 Run the building process manually using the following code (adapting the version).
 
@@ -91,6 +44,8 @@ make VERSION=3.6.3-1
 
 ## Changelog
 
+- *2020-04-17*
+  - Add `tmux` for `rvisidata`
 - *2020-04-09*
   - Bump to `r-base:3.6.3`
   - Remove all R packages
