@@ -87,6 +87,8 @@ RUN pip3 install \
   dnslib \
   # graphviz
   namestand \
+  # Allow rvisidata to open a new tmux pane inside an existing tmux session
+  tmux \
   python-dateutil
 
 # Visidata 2 pre-release
