@@ -18,6 +18,8 @@ RUN apt-get -qq update && \
   # svglite dependency (required for svg rmarkdown output)
   # In 3.6.2-1, libcairo2-dev broke the dependency tree, so we removed it
   # libcairo2-dev \
+  # svglite dependency
+  libfontconfig1-dev \
   # Being able to use the `R` documentation
   less \
   # Required for rjava
