@@ -32,18 +32,20 @@ Run the building process manually using the following code (adapting the version
 ```bash
 docker login
 docker build --no-cache -t mytidyverse .
-docker tag mytidyverse paulklemm/mytidyverse:base-3.6.3-1
-docker push paulklemm/mytidyverse:base-3.6.3-1
+docker tag mytidyverse paulklemm/mytidyverse:base-4.0.2-1
+docker push paulklemm/mytidyverse:base-4.0.2-1
 ```
 
 You can also use the makefile.
 
 ```bash
-make VERSION=3.6.3-1
+make VERSION=4.0.2-1
 ```
 
 ## Changelog
 
+- *2020-07-21*
+  - Bump to `r-base:4.0.2`
 - *2020-04-17*
   - Add `tmux` for `rvisidata`
 - *2020-04-09*
