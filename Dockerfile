@@ -19,7 +19,8 @@ RUN apt-get -qq update && \
   # In 3.6.2-1, libcairo2-dev broke the dependency tree, so we removed it
   # libcairo2-dev \
   # svglite dependency
-  libfontconfig1-dev \
+  # In 4.0.2-1, libfontconfig1-dev broke the dependency tree, so we removed it
+  # libfontconfig1-dev \
   # Being able to use the `R` documentation
   less \
   # Required for rjava
@@ -33,9 +34,7 @@ RUN apt-get -qq update && \
   pandoc-citeproc \
   sudo \
   gdebi-core \
-  # HACK: 3.5.3-1: libxt-dev could not be installed because of a dependency error, we for now install libxt6 and hope it works as well
-  libxt6 \
-  # libxt-dev \
+  libxt-dev \
   wget \
   # Visidata requirements
   man \
