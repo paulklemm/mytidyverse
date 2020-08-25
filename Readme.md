@@ -32,18 +32,20 @@ Run the building process manually using the following code (adapting the version
 ```bash
 docker login
 docker build --no-cache -t mytidyverse .
-docker tag mytidyverse paulklemm/mytidyverse:base-4.0.2-1
-docker push paulklemm/mytidyverse:base-4.0.2-1
+docker tag mytidyverse paulklemm/mytidyverse:base-4.0.2-2
+docker push paulklemm/mytidyverse:base-4.0.2-2
 ```
 
 You can also use the makefile.
 
 ```bash
-make VERSION=4.0.2-1
+make VERSION=4.0.2-2
 ```
 
 ## Changelog
 
+- *2020-08-25*
+  - Add RStudio Server
 - *2020-07-21*
   - Bump to `r-base:4.0.2`
 - *2020-04-17*
