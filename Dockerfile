@@ -94,6 +94,8 @@ RUN pip3 install \
 
 # Visidata 2 pre-release
 RUN pip3 install git+https://github.com/saulpw/visidata@v2.-3.0
+# Install radian
+RUN pip3 install radian
 
 # Configure java for R
 RUN R CMD javareconf
@@ -135,4 +137,8 @@ EXPOSE 3838
 # The shiny-server.sh file is provided with this repository and also from the rocker/shiny package https://github.com/rocker-org/shiny
 COPY shiny-server.sh /usr/bin/shiny-server.sh
 
-RUN pip3 install radian
+# Install RStudio Server
+RUN wget https://www.rstudio.org/download/latest/stable/server/bionic/rstudio-server-latest-amd64.deb && \
+  sudo gdebi rstudio-server-1.3.1073-amd64.deb
+
+EXPOSE 8787
