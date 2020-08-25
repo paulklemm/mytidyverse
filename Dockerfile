@@ -46,6 +46,8 @@ RUN apt-get -qq update && \
   zstd \
   # Allow rvisidata to open a new tmux pane inside an existing tmux session
   tmux \
+  # RStudio Server dependency
+  libclang-dev \
   && apt-get clean
 
 # HACK for installing firefox
@@ -90,9 +92,7 @@ RUN pip3 install \
   dnslib \
   # graphviz
   namestand \
-  python-dateutil \
-  # RStudio Server dependency
-  libclang-dev
+  python-dateutil
 
 # Visidata 2 pre-release
 RUN pip3 install git+https://github.com/saulpw/visidata@v2.-3.0
