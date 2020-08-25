@@ -90,7 +90,9 @@ RUN pip3 install \
   dnslib \
   # graphviz
   namestand \
-  python-dateutil
+  python-dateutil \
+  # RStudio Server dependency
+  libclang-dev
 
 # Visidata 2 pre-release
 RUN pip3 install git+https://github.com/saulpw/visidata@v2.-3.0
