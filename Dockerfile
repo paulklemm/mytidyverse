@@ -139,6 +139,6 @@ COPY shiny-server.sh /usr/bin/shiny-server.sh
 
 # Install RStudio Server
 RUN wget https://www.rstudio.org/download/latest/stable/server/bionic/rstudio-server-latest-amd64.deb && \
-  sudo gdebi rstudio-server-latest-amd64.deb
+  sudo gdebi --non-interactive rstudio-server-latest-amd64.deb
 
 EXPOSE 8787
