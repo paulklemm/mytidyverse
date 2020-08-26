@@ -1,6 +1,8 @@
 FROM r-base:4.0.2
 
-RUN apt-get -qq update && \
+# Remove debian testing branch
+RUN rm -rf /etc/apt/apt.conf.d/default && \
+  apt-get -qq update && \
   # fix-broken: https://askubuntu.com/questions/1077298/depends-libnss3-23-26-but-23-21-1ubuntu4-is-to-be-installed
   DEBIAN_FRONTEND=noninteractive apt-get -qy install -f \
   python3-pip \
