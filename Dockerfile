@@ -51,6 +51,8 @@ RUN rm -rf /etc/apt/apt.conf.d/default && \
   tmux \
   # RStudio Server dependency
   libclang-dev \
+  # RStudio Server dependency (ps)
+  procps \
   && apt-get clean
 
 # HACK for installing firefox
