@@ -1,3 +1,4 @@
+# r-base is build upon the debian:testing image
 FROM r-base:4.0.2
 
 # Remove debian testing branch
