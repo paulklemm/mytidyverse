@@ -46,6 +46,7 @@ make VERSION=4.0.2-2
 
 - *2020-08-27*
   - Remove RStudio Server
+  - Switch to `rocker/r-ubuntu:20.04`
 - *2020-08-25*
   - Add RStudio Server
 - *2020-07-21*
