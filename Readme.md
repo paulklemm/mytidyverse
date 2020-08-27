@@ -44,6 +44,8 @@ make VERSION=4.0.2-2
 
 ## Changelog
 
+- *2020-08-27*
+  - Remove RStudio Server
 - *2020-08-25*
   - Add RStudio Server
 - *2020-07-21*

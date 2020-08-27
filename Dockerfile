@@ -49,9 +49,6 @@ RUN rm -rf /etc/apt/apt.conf.d/default && \
   zstd \
   # Allow rvisidata to open a new tmux pane inside an existing tmux session
   tmux \
-  # RStudio Server dependency
-  libclang-dev \
-  # RStudio Server dependency (ps)
   procps \
   && apt-get clean
 
@@ -143,9 +140,5 @@ EXPOSE 3838
 
 # The shiny-server.sh file is provided with this repository and also from the rocker/shiny package https://github.com/rocker-org/shiny
 COPY shiny-server.sh /usr/bin/shiny-server.sh
-
-# Install RStudio Server
-RUN wget https://www.rstudio.org/download/latest/stable/server/bionic/rstudio-server-latest-amd64.deb && \
-  sudo gdebi --non-interactive rstudio-server-latest-amd64.deb
 
 EXPOSE 8787
