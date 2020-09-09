@@ -47,6 +47,9 @@ RUN apt-get -qq update && \
   # Allow rvisidata to open a new tmux pane inside an existing tmux session
   tmux \
   procps \
+  # Required for gsl package, required by https://bioconductor.org/packages/release/bioc/html/TFBSTools.html (Jaspar Motif analysis)
+  gsl-bin \
+  libgsl0-dev \
   && apt-get clean
 
 # HACK for installing firefox

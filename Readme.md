@@ -44,6 +44,8 @@ make VERSION=4.0.2-2
 
 ## Changelog
 
+- *2020-09-09*
+  - Add required libraries for `TFBSTools` package
 - *2020-08-27*
   - Remove RStudio Server
   - Switch to `rocker/r-ubuntu:20.04`
