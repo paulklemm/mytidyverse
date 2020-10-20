@@ -97,7 +97,7 @@ RUN pip3 install \
   python-dateutil
 
 # Visidata 2 pre-release
-RUN pip3 install git+https://github.com/saulpw/visidata@v2.-3.0
+RUN pip3 install visidata
 # Install radian
 RUN pip3 install radian
 
