@@ -1,4 +1,4 @@
-VERSION=4.0.2-3
+VERSION=4.0.3-1
 
 build:
 	docker login

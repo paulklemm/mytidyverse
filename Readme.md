@@ -32,18 +32,20 @@ Run the building process manually using the following code (adapting the version
 ```bash
 docker login
 docker build --no-cache -t mytidyverse .
-docker tag mytidyverse paulklemm/mytidyverse:base-4.0.2-3
-docker push paulklemm/mytidyverse:base-4.0.2-3
+docker tag mytidyverse paulklemm/mytidyverse:base-4.0.3-1
+docker push paulklemm/mytidyverse:base-4.0.3-1
 ```
 
 You can also use the makefile.
 
 ```bash
-make VERSION=4.0.2-3
+make VERSION=4.0.3-1
 ```
 
 ## Changelog
 
+- *2020-10-20*
+  - Clean up Dockerfile and bump to `4.0.3`
 - *2020-09-09*
   - Add required libraries for `TFBSTools` package
 - *2020-08-27*
