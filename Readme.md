@@ -44,6 +44,8 @@ make VERSION=4.0.3-1
 
 ## Changelog
 
+- *2020-11-30*
+  - Add `jags` and `ibmagick++-dev`
 - *2020-10-20*
   - Clean up Dockerfile and bump to `4.0.3`
 - *2020-09-09*

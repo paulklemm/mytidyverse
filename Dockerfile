@@ -46,6 +46,10 @@ RUN apt-get -qq update && \
   # Required for gsl package, required by https://bioconductor.org/packages/release/bioc/html/TFBSTools.html (Jaspar Motif analysis)
   gsl-bin \
   libgsl0-dev \
+  # Required for magick package
+  ibmagick++-dev \
+  # Required for rjags
+  jags \
   && apt-get clean
 
 # Install Visidata. Check https://github.com/saulpw/visidata/blob/stable/requirements.txt
