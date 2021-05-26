@@ -7,6 +7,8 @@ RUN apt-get -qq update && \
   # X11 Window system
   xorg \
   openbox \
+  # enrichplot dependency
+  libglpk-dev \
   # ggraph dependency (required for clusterProfiler)
   libudunits2-dev \
   # XML2 dependency (required for tidyverse)
