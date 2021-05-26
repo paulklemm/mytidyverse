@@ -1,4 +1,4 @@
-FROM rocker/r-ubuntu:20.04
+FROM rocker/r-ver:4.1.0
 
 RUN apt-get -qq update && \
   # fix-broken: https://askubuntu.com/questions/1077298/depends-libnss3-23-26-but-23-21-1ubuntu4-is-to-be-installed

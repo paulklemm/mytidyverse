@@ -32,18 +32,20 @@ Run the building process manually using the following code (adapting the version
 ```bash
 docker login
 docker build --no-cache -t mytidyverse .
-docker tag mytidyverse paulklemm/mytidyverse:base-4.0.4-1
-docker push paulklemm/mytidyverse:base-4.0.4-1
+docker tag mytidyverse paulklemm/mytidyverse:base-4.1.0-1
+docker push paulklemm/mytidyverse:base-4.1.0-1
 ```
 
 You can also use the makefile.
 
 ```bash
-make VERSION=4.0.4-1
+make VERSION=4.1.0-1
 ```
 
 ## Changelog
 
+- *2021-05-26*
+  - Switch to `rocker/r-ver` as all rocker images `>= 4.0.0` are now on Ubuntu 20.04 instead of Debian
 - *2021-02-25*
   - Bump to `4.0.4`
 - *2020-11-30*
