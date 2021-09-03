@@ -32,18 +32,20 @@ Run the building process manually using the following code (adapting the version
 ```bash
 docker login
 docker build --no-cache -t mytidyverse .
-docker tag mytidyverse paulklemm/mytidyverse:base-4.1.1-1
-docker push paulklemm/mytidyverse:base-4.1.1-1
+docker tag mytidyverse paulklemm/mytidyverse:base-4.1.1-2
+docker push paulklemm/mytidyverse:base-4.1.1-2
 ```
 
 You can also use the makefile.
 
 ```bash
-make VERSION=4.1.1-1
+make VERSION=4.1.1-2
 ```
 
 ## Changelog
 
+- *2021-09-03*
+  - Fix requirements for magick and tesseract package
 - *2021-08-16*
   - Add some library to allow `ggstatsplot` to be installed and bump to 4.1.1
 - *2021-05-26*

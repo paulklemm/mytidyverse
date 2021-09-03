@@ -49,7 +49,9 @@ RUN apt-get -qq update && \
   gsl-bin \
   libgsl0-dev \
   # Required for magick package
-  ibmagick++-dev \
+  libmagick++-dev \
+  # Required for tesseract package
+  libpoppler-cpp-dev \
   # Required for rjags
   jags \
   # Required for Rmpfr which we need for Bayes stuff
