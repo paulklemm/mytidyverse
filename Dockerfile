@@ -56,7 +56,6 @@ RUN apt-get -qq update && \
   jags \
   # Required for Rmpfr which we need for Bayes stuff
   libmpfr-dev \
-  libmpfr4 \
   && apt-get clean
 
 # Install Visidata. Check https://github.com/saulpw/visidata/blob/stable/requirements.txt
