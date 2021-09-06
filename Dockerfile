@@ -51,7 +51,7 @@ RUN apt-get -qq update && \
   # Required for magick package
   libmagick++-dev \
   # Required for tesseract package
-  libtesseract-dev libleptonica-dev libpoppler-cpp-dev \
+  libtesseract-dev libleptonica-dev libpoppler-cpp-dev tesseract-ocr-eng \
   # Required for rjags
   jags \
   # Required for Rmpfr which we need for Bayes stuff
