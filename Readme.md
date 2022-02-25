@@ -32,8 +32,8 @@ Run the building process manually using the following code (adapting the version
 ```bash
 docker login
 docker build --no-cache -t mytidyverse .
-docker tag mytidyverse paulklemm/mytidyverse:base-4.1.1-2
-docker push paulklemm/mytidyverse:base-4.1.1-2
+docker tag mytidyverse paulklemm/mytidyverse:base-4.1.2-1
+docker push paulklemm/mytidyverse:base-4.1.2-1
 ```
 
 You can also use the makefile.
@@ -44,6 +44,9 @@ make VERSION=4.1.1-2
 
 ## Changelog
 
+- *2022-02-25*
+  - Add `anndata` and `scanpy` python modules
+  - Bump to 4.1.2
 - *2021-09-03*
   - Fix requirements for magick and tesseract package
 - *2021-08-16*
