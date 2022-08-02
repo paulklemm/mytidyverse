@@ -32,18 +32,21 @@ Run the building process manually using the following code (adapting the version
 ```bash
 docker login
 docker build --no-cache -t mytidyverse .
-docker tag mytidyverse paulklemm/mytidyverse:base-4.1.2-1
-docker push paulklemm/mytidyverse:base-4.1.2-1
+docker tag mytidyverse paulklemm/mytidyverse:base-4.2.1-1
+docker push paulklemm/mytidyverse:base-4.2.1-1
 ```
 
 You can also use the makefile.
 
 ```bash
-make VERSION=4.1.1-2
+make VERSION=4.2.1-1
 ```
 
 ## Changelog
 
+- *2022-08-02*
+  - Add `libncurses5` to comply with Lukas' `fibeR` package
+  - Bump to 4.2.1
 - *2022-02-25*
   - Add `anndata` and `scanpy` python modules
   - Bump to 4.1.2

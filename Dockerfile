@@ -1,4 +1,4 @@
-FROM rocker/r-ver:4.1.2
+FROM rocker/r-ver:4.2.1
 
 RUN apt-get -qq update && \
   # fix-broken: https://askubuntu.com/questions/1077298/depends-libnss3-23-26-but-23-21-1ubuntu4-is-to-be-installed
@@ -56,6 +56,8 @@ RUN apt-get -qq update && \
   jags \
   # Required for Rmpfr which we need for Bayes stuff
   libmpfr-dev \
+  # Required for Lukas' fibeR package
+  libncurses5 \
   && apt-get clean
 
 # Install Visidata. Check https://github.com/saulpw/visidata/blob/stable/requirements.txt
