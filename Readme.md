@@ -44,6 +44,8 @@ make VERSION=4.2.1-1
 
 ## Changelog
 
+- *2022-08-03*
+  - Add `libgeos-dev` dependency required for Seurat
 - *2022-08-02*
   - Add `libncurses5` to comply with Lukas' `fibeR` package
   - Bump to 4.2.1
