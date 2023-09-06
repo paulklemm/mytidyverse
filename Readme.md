@@ -32,18 +32,21 @@ Run the building process manually using the following code (adapting the version
 ```bash
 docker login
 docker build --no-cache -t mytidyverse .
-docker tag mytidyverse paulklemm/mytidyverse:base-4.2.1-2
-docker push paulklemm/mytidyverse:base-4.2.1-2
+docker tag mytidyverse paulklemm/mytidyverse:base-4.3.1-1
+docker push paulklemm/mytidyverse:base-4.3.1-1
 ```
 
 You can also use the makefile.
 
 ```bash
-make VERSION=4.2.1-2
+make VERSION=4.3.1-1
 ```
 
 ## Changelog
 
+- *2023-09-06*
+  - Bump to 4.3.1
+  - Add `scvi` tools to interface HypoMap packages
 - *2022-08-03*
   - Add `libgeos-dev` dependency required for Seurat
 - *2022-08-02*
