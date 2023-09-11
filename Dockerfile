@@ -56,7 +56,8 @@ RUN apt-get -qq update && \
 
 # Install vd loader dependencies.
 RUN pip3 install \
-  pandas \
+  # Pandas >2.0.0 not supported by scvi at the moment
+  pandas<2.0.0 \
   openpyxl \
   python-dateutil
 
