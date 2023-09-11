@@ -1,4 +1,4 @@
-FROM rocker/r-ver:4.3.1
+FROM rocker/shiny:4.3.1
 
 RUN apt-get -qq update && \
   # fix-broken: https://askubuntu.com/questions/1077298/depends-libnss3-23-26-but-23-21-1ubuntu4-is-to-be-installed
@@ -27,13 +27,6 @@ RUN apt-get -qq update && \
   default-jdk \
   r-cran-rjava \
   git \
-  # Shiny requirements
-  pandoc \
-  pandoc-citeproc \
-  sudo \
-  gdebi-core \
-  libxt-dev \
-  wget \
   # Visidata requirements
   man \
   # Seurat requirements (Single Cell RNASeq package)
@@ -79,19 +72,9 @@ RUN pip3 install scvi-tools
 # Configure java for R
 RUN R CMD javareconf
 
-# From rocker-versioned2/dockerfiles/shiny_4.3.1.Dockerfile
-
-ENV S6_VERSION=v2.1.0.2
-ENV SHINY_SERVER_VERSION=latest
-ENV PANDOC_VERSION=default
-
-RUN /rocker_scripts/install_shiny_server.sh
-
-
-# This may be not required since we will start it as singularity image anyway
-EXPOSE 3838
-
 # The shiny-server.sh file is provided with this repository and also from the rocker/shiny package https://github.com/rocker-org/shiny
 COPY shiny-server.sh /usr/bin/shiny-server.sh
 
+# This may be not required since we will start it as singularity image anyway
 EXPOSE 8787
+EXPOSE 3838
