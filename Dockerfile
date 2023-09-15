@@ -54,10 +54,11 @@ RUN apt-get -qq update && \
   libncurses5 \
   && apt-get clean
 
-# Install vd loader dependencies.
 RUN pip3 install \
   # Pandas >2.0.0 not supported by scvi at the moment
   "pandas<2.0.0" \
+  # Required for scvi
+  igraph \
   openpyxl \
   python-dateutil
 

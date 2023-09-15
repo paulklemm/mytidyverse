@@ -32,18 +32,20 @@ Run the building process manually using the following code (adapting the version
 ```bash
 docker login
 docker build --no-cache -t mytidyverse .
-docker tag mytidyverse paulklemm/mytidyverse:base-4.3.1-2
-docker push paulklemm/mytidyverse:base-4.3.1-2
+docker tag mytidyverse paulklemm/mytidyverse:base-4.3.1-3
+docker push paulklemm/mytidyverse:base-4.3.1-3
 ```
 
 You can also use the makefile.
 
 ```bash
-make VERSION=4.3.1-2
+make VERSION=4.3.1-3
 ```
 
 ## Changelog
 
+- *2023-09-15*
+  - Add `igraph` dependency for scvi
 - *2023-09-11*
   - Add potential fix for scvi by reverting to pandas < 2.0.0
 - *2023-09-06*
