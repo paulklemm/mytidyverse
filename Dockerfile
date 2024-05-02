@@ -54,6 +54,9 @@ RUN apt-get -qq update && \
   libncurses5 \
   && apt-get clean
 
+# Install languageserver for R to make it work with LSP
+RUN R -e "install.packages(c('languageserver'), dependencies=TRUE)"
+
 RUN pip3 install \
   # Pandas >2.0.0 not supported by scvi at the moment
   "pandas<2.0.0" \
