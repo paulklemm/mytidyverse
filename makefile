@@ -15,7 +15,7 @@ build:
 	docker push $(DOCKERHUB_USER)/mytidyverse:$(VERSION)
 
 singularity:
-	docker run --rm -v ${PWD}:/mytidyverse -it $(SINGULARITY_IMAGE) build /mytidyverse/mytidyverse-$(VERSION).simg docker://paulklemm/mytidyverse:$(VERSION)
+	docker run --rm -v ${PWD}:/mytidyverse -it quay.io/singularity/singularity:v3.11.4-arm64 build /mytidyverse/mytidyverse-$(VERSION).simg docker://paulklemm/mytidyverse:$(VERSION)
 
 copy:
 	scp ${PWD}/mytidyverse-$(VERSION).simg $(SERVER):$(SINGULARITY_PATH)
