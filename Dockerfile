@@ -63,7 +63,9 @@ RUN pip3 install \
   # Required for scvi
   igraph \
   openpyxl \
-  python-dateutil
+  python-dateutil \
+  # Required to run Jupyter Notebooks
+  jupyter
 
 # Visidata 2 pre-release
 RUN pip3 install visidata

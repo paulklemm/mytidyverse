@@ -44,6 +44,9 @@ make VERSION=4.3.1-3
 
 ## Changelog
 
+- *2024-05-14*
+  - Bump to 4.4.0
+  - Add Jupyter Notebook
 - *2023-09-15*
   - Add `igraph` dependency for scvi
 - *2023-09-11*
