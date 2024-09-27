@@ -1,4 +1,4 @@
-FROM rocker/shiny:4.4.0
+FROM rocker/shiny:4.4.1
 
 RUN apt-get -qq update && \
   # fix-broken: https://askubuntu.com/questions/1077298/depends-libnss3-23-26-but-23-21-1ubuntu4-is-to-be-installed
@@ -52,6 +52,13 @@ RUN apt-get -qq update && \
   libmpfr-dev \
   # Required for Lukas' fibeR package
   libncurses5 \
+  # Required for IRKernel (R kernel for Jupyter)
+  libzmq5 \
+  # Required for Quarto
+  pandoc \
+  pandoc-citeproc \
+  curl \
+  gdebi-core \
   && apt-get clean
 
 # Install languageserver for R to make it work with LSP
@@ -67,7 +74,11 @@ RUN pip3 install \
   # Required to run Jupyter Notebooks
   jupyter
 
-# Visidata 2 pre-release
+# Install Quarto
+RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb
+RUN gdebi --non-interactive quarto-linux-amd64.deb
+
+# Visidata
 RUN pip3 install visidata
 # Install radian
 RUN pip3 install radian

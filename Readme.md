@@ -44,6 +44,9 @@ make VERSION=4.3.1-3
 
 ## Changelog
 
+- *2024-09-27*
+  - Add Quarto
+  - Bump to 4.4.1
 - *2024-05-14*
   - Bump to 4.4.0
   - Add Jupyter Notebook
