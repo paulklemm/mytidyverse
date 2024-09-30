@@ -1,4 +1,4 @@
-VERSION=4.4.1-1
+VERSION=4.4.1-2
 DOCKERHUB_USER=paulklemm
 SERVER=pklemm@blade27.sf.mpg.de
 SINGULARITY_PATH=/beegfs/scratch/bruening_scratch/pklemm/singularity/singularity-images

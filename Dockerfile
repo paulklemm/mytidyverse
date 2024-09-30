@@ -59,6 +59,8 @@ RUN apt-get -qq update && \
   pandoc-citeproc \
   curl \
   gdebi-core \
+  # Install zsh
+  zsh \
   && apt-get clean
 
 # Install languageserver for R to make it work with LSP

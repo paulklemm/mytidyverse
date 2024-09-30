@@ -44,6 +44,9 @@ make VERSION=4.3.1-3
 
 ## Changelog
 
+- *2024-09-30*
+  - Add ZSH
+  - Bump to 4.4.2
 - *2024-09-27*
   - Add Quarto
   - Bump to 4.4.1
