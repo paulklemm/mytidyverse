@@ -61,6 +61,8 @@ RUN apt-get -qq update && \
   gdebi-core \
   # Install zsh
   zsh \
+  # Install keychain
+  keychain \
   && apt-get clean
 
 # Install languageserver for R to make it work with LSP
