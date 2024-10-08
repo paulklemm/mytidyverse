@@ -42,8 +42,12 @@ You can also use the makefile.
 make VERSION=4.3.1-3
 ```
 
+Or adapt the default VERSION in the makefile and run `make`.
+
 ## Changelog
 
+- *2024-10-08*
+  - Add singularity
 - *2024-10-01*
   - Add keychain
 - *2024-09-30*
