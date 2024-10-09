@@ -114,7 +114,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && mkdir -p ${GOPATH}/src/github.com/sylabs \
     && git clone --depth 1 --branch v${SINGULARITY_VERSION} https://github.com/sylabs/singularity.git ${GOPATH}/src/github.com/sylabs/singularity \
     && cd ${GOPATH}/src/github.com/sylabs/singularity \
-    && ./mconfig -without-suid && make -C ./builddir && make -C ./builddir install \
+    && ./mconfig --without-suid && make -C ./builddir && make -C ./builddir install \
     && cd / && rm -rf ${GOPATH} \
     && apt-get purge -y --auto-remove build-essential wget \
     && rm -rf /var/lib/apt/lists/*
