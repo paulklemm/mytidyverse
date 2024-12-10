@@ -63,6 +63,8 @@ RUN apt-get -qq update && \
   zsh \
   # Install keychain
   keychain \
+  # Install git lfs
+  git-lfs \
   && apt-get clean
 
 # Install languageserver for R to make it work with LSP

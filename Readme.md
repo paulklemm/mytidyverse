@@ -46,6 +46,8 @@ Or adapt the default VERSION in the makefile and run `make`.
 
 ## Changelog
 
+- *2024-12-10*
+  - Add git lfs
 - *2024-10-08*
   - Add singularity
 - *2024-10-01*
