@@ -1,4 +1,4 @@
-FROM rocker/shiny:4.4.1
+FROM rocker/shiny:4.4.2
 
 RUN apt-get -qq update && \
   # fix-broken: https://askubuntu.com/questions/1077298/depends-libnss3-23-26-but-23-21-1ubuntu4-is-to-be-installed
@@ -59,12 +59,14 @@ RUN apt-get -qq update && \
   pandoc-citeproc \
   curl \
   gdebi-core \
-  # Install zsh
   zsh \
-  # Install keychain
-  keychain \
-  # Install git lfs
+  # Git LFS
   git-lfs \
+  # SSH client
+  keychain \
+  # Monitoring
+  htop \
+  btop \
   && apt-get clean
 
 # Install languageserver for R to make it work with LSP
