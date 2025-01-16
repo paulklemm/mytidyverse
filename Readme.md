@@ -49,6 +49,8 @@ Or adapt the default VERSION in the makefile and run `make`.
 - *2025-01-14*
   - Bump to `4.4.2`
   - Add `btop`, `htop`, `keychain` and `git-lfs`
+  - Remove `Quarto`
+  - Remove `libncurses5` (required for FibeR package)
 - *2024-12-10*
   - Add git lfs
 - *2024-10-08*

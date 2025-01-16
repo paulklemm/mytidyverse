@@ -2,8 +2,13 @@ FROM rocker/shiny:4.4.2
 
 RUN apt-get -qq update && \
   # fix-broken: https://askubuntu.com/questions/1077298/depends-libnss3-23-26-but-23-21-1ubuntu4-is-to-be-installed
-  DEBIAN_FRONTEND=noninteractive apt-get -qy install -f \
+  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+  python3 \
   python3-pip \
+  python3-venv \
+  python3-dev \
+  build-essential \
+  gcc \
   # X11 Window system
   xorg \
   openbox \
@@ -51,12 +56,9 @@ RUN apt-get -qq update && \
   # Required for Rmpfr which we need for Bayes stuff
   libmpfr-dev \
   # Required for Lukas' fibeR package
-  libncurses5 \
+  # libncurses5 \
   # Required for IRKernel (R kernel for Jupyter)
   libzmq5 \
-  # Required for Quarto
-  pandoc \
-  pandoc-citeproc \
   curl \
   gdebi-core \
   zsh \
@@ -72,6 +74,10 @@ RUN apt-get -qq update && \
 # Install languageserver for R to make it work with LSP
 RUN R -e "install.packages(c('languageserver'), dependencies=TRUE)"
 
+# Setup Python environment
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
 RUN pip3 install \
   # Pandas >2.0.0 not supported by scvi at the moment
   "pandas<2.0.0" \
@@ -81,10 +87,6 @@ RUN pip3 install \
   python-dateutil \
   # Required to run Jupyter Notebooks
   jupyter
-
-# Install Quarto
-RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb
-RUN gdebi --non-interactive quarto-linux-amd64.deb
 
 # Visidata
 RUN pip3 install visidata
@@ -101,27 +103,37 @@ RUN R CMD javareconf
 # The shiny-server.sh file is provided with this repository and also from the rocker/shiny package https://github.com/rocker-org/shiny
 COPY shiny-server.sh /usr/bin/shiny-server.sh
 
-# Install Singularity
-# Set environment variables
-ENV GO_VERSION=1.17 \
-    SINGULARITY_VERSION=3.8.3 \
-    GOPATH=/go \
-    PATH=/usr/local/go/bin:$PATH
-
-# Install dependencies, Go, and build Singularity in one RUN statement
+# Singularity installation
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        build-essential libssl-dev uuid-dev libgpgme11-dev \
-        squashfs-tools libseccomp-dev pkg-config wget \
-    && wget https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz \
-    && tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz \
-    && rm go${GO_VERSION}.linux-amd64.tar.gz \
-    && mkdir -p ${GOPATH}/src/github.com/sylabs \
-    && git clone --depth 1 --branch v${SINGULARITY_VERSION} https://github.com/sylabs/singularity.git ${GOPATH}/src/github.com/sylabs/singularity \
-    && cd ${GOPATH}/src/github.com/sylabs/singularity \
-    && ./mconfig --without-suid && make -C ./builddir && make -C ./builddir install \
-    && cd / && rm -rf ${GOPATH} \
-    && apt-get purge -y --auto-remove build-essential wget \
-    && rm -rf /var/lib/apt/lists/*
+  build-essential \
+  libssl-dev \
+  uuid-dev \
+  libgpgme11-dev \
+  squashfs-tools \
+  libseccomp-dev \
+  wget \
+  pkg-config \
+  git \
+  cryptsetup \
+  ca-certificates
+
+ENV GO_VERSION=1.17 \
+  GOPATH=/go \
+  PATH=/usr/local/go/bin:$PATH \
+  GOOS=linux \
+  SINGULARITY_VERSION=3.8.3
+
+RUN wget https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz \
+  && tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz \
+  && rm go${GO_VERSION}.linux-amd64.tar.gz
+
+RUN mkdir -p ${GOPATH}/src/github.com/sylabs \
+  && cd ${GOPATH}/src/github.com/sylabs \
+  && git clone --depth 1 --branch v${SINGULARITY_VERSION} https://github.com/sylabs/singularity.git \
+  && cd singularity \
+  && ./mconfig --prefix=/usr/local --without-suid \
+  && make -C ./builddir \
+  && make -C ./builddir install
 
 # This may be not required since we will start it as singularity image anyway
 EXPOSE 8787

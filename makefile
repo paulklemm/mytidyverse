@@ -3,7 +3,7 @@ DOCKERHUB_USER=paulklemm
 SERVER=pklemm@blade27.sf.mpg.de
 SINGULARITY_PATH=/beegfs/scratch/bruening_scratch/pklemm/singularity/singularity-images
 SINGULARITY_LATEST_PATH=$(SINGULARITY_PATH)/latest
-PLATFORM=--platform linux/x86_64
+PLATFORM=--platform linux/amd64
 SINGULARITY_IMAGE=quay.io/singularity/singularity:v3.11.4-arm64
 
 .PHONY: all
