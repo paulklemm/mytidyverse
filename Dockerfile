@@ -103,38 +103,6 @@ RUN R CMD javareconf
 # The shiny-server.sh file is provided with this repository and also from the rocker/shiny package https://github.com/rocker-org/shiny
 COPY shiny-server.sh /usr/bin/shiny-server.sh
 
-# Singularity installation
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  build-essential \
-  libssl-dev \
-  uuid-dev \
-  libgpgme11-dev \
-  squashfs-tools \
-  libseccomp-dev \
-  wget \
-  pkg-config \
-  git \
-  cryptsetup \
-  ca-certificates
-
-ENV GO_VERSION=1.17 \
-  GOPATH=/go \
-  PATH=/usr/local/go/bin:$PATH \
-  GOOS=linux \
-  SINGULARITY_VERSION=3.8.3
-
-RUN wget https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz \
-  && tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz \
-  && rm go${GO_VERSION}.linux-amd64.tar.gz
-
-RUN mkdir -p ${GOPATH}/src/github.com/sylabs \
-  && cd ${GOPATH}/src/github.com/sylabs \
-  && git clone --depth 1 --branch v${SINGULARITY_VERSION} https://github.com/sylabs/singularity.git \
-  && cd singularity \
-  && ./mconfig --prefix=/usr/local --without-suid \
-  && make -C ./builddir \
-  && make -C ./builddir install
-
 # This may be not required since we will start it as singularity image anyway
 EXPOSE 8787
 EXPOSE 3838

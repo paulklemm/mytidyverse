@@ -46,6 +46,8 @@ Or adapt the default VERSION in the makefile and run `make`.
 
 ## Changelog
 
+- *2025-01-23*
+  - Remove Singularity
 - *2025-01-14*
   - Bump to `4.4.2`
   - Add `btop`, `htop`, `keychain` and `git-lfs`

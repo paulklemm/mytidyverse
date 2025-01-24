@@ -4,7 +4,7 @@ SERVER=pklemm@blade27.sf.mpg.de
 SINGULARITY_PATH=/beegfs/scratch/bruening_scratch/pklemm/singularity/singularity-images
 SINGULARITY_LATEST_PATH=$(SINGULARITY_PATH)/latest
 PLATFORM=--platform linux/amd64
-SINGULARITY_IMAGE=quay.io/singularity/singularity:v3.11.4-arm64
+SINGULARITY_IMAGE=quay.io/singularity/singularity:v4.1.0
 
 .PHONY: all
 all: build singularity copy create-link clean
@@ -16,7 +16,7 @@ build:
 	docker push $(DOCKERHUB_USER)/mytidyverse:$(VERSION)
 
 singularity:
-	docker run --rm -v "${PWD}:/mytidyverse" -it $(SINGULARITY_IMAGE) build /mytidyverse/mytidyverse-$(VERSION).simg docker://paulklemm/mytidyverse:$(VERSION)
+	docker run $(PLATFORM) --rm -v "${PWD}:/mytidyverse" -it $(SINGULARITY_IMAGE) build /mytidyverse/mytidyverse-$(VERSION).simg docker://paulklemm/mytidyverse:$(VERSION)
 
 copy:
 	scp "${PWD}/mytidyverse-$(VERSION).simg" $(SERVER):$(SINGULARITY_PATH)
