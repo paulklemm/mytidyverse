@@ -1,0 +1,73 @@
+# General development artifacts
+**/.git
+**/.gitignore
+**/.gitmodules
+**/.github
+**/.vscode
+**/.idea
+
+# Build artifacts
+**/*.log
+**/*.tmp
+**/*.swp
+**/*.swo
+**/.Rproj.user
+**/Rplots.pdf
+**/*.Rcheck/
+**/*.tar.gz
+**/*.o
+**/*.so
+
+# Environment/config files
+**/.env
+**/.Renviron
+**/docker-compose.yml
+**/docker-compose.*.yml
+
+# Python-specific exclusions
+**/__pycache__/
+**/*.py[cod]
+**/venv/
+**/env/
+**/dist/
+**/build/
+**/*.egg-info/
+
+# R-specific exclusions
+**/.Rhistory
+**/.RData
+**/.Ruserdata
+**/man/
+**/vignettes/
+
+# Documentation and tests
+**/docs/
+**/examples/
+**/tests/
+**/test/
+**/spec/
+**/README.md
+**/CHANGELOG.md
+
+# System files
+**/.DS_Store
+**/Thumbs.db
+
+# Ignore the Dockerfiles themselves (they're still used for build)
+Dockerfile
+.dockerignore
+dockerfile
+
+# Local development artifacts
+**/shiny-server.sh  # Only include the copied version
+**/local_config/
+**/tmp/
+
+# Singularity cache (if any)
+.singularity/
+**/*.simg
+**/*.sif
+
+# Node.js artifacts (if any)
+**/node_modules/
+**/package-lock.json
