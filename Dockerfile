@@ -1,5 +1,5 @@
-# Base image with Shiny Server and R 4.4.2
-FROM rocker/shiny-verse:4.4.2
+# Base image with Shiny Server and R 4.4.3
+FROM rocker/shiny-verse:4.4.3
 
 # System dependencies installation with cleanup
 RUN apt-get -qq update && \
@@ -16,6 +16,8 @@ RUN apt-get -qq update && \
     xorg openbox \
     # Monitoring tools
     htop btop \
+    # Netcat to run ZED server within Singularity
+    netcat-openbsd \
     # Bioinformatics dependencies
     libhdf5-dev libgeos-dev libgsl0-dev gsl-bin \
     # R package system dependencies

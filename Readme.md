@@ -32,20 +32,23 @@ Run the building process manually using the following code (adapting the version
 ```bash
 docker login
 docker build --no-cache -t mytidyverse .
-docker tag mytidyverse paulklemm/mytidyverse:4.4.2-1
-docker push paulklemm/mytidyverse:4.4.2-1
+docker tag mytidyverse paulklemm/mytidyverse:4.4.3-1
+docker push paulklemm/mytidyverse:4.4.3-1
 ```
 
 You can also use the makefile.
 
 ```bash
-make VERSION=4.4.2-1
+make VERSION=4.4.3-1
 ```
 
 Or adapt the default VERSION in the makefile and run `make`.
 
 ## Changelog
 
+- *2025-04-24*
+  - Add netcat
+  - Bump to `4.4.3`
 - *2025-01-23*
   - Remove Singularity
 - *2025-01-14*
