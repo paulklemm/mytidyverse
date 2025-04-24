@@ -47,7 +47,7 @@ Or adapt the default VERSION in the makefile and run `make`.
 ## Changelog
 
 - *2025-04-24*
-  - Add netcat
+  - Add `git-lfs`
   - Bump to `4.4.3`
 - *2025-01-23*
   - Remove Singularity

@@ -16,8 +16,8 @@ RUN apt-get -qq update && \
     xorg openbox \
     # Monitoring tools
     htop btop \
-    # Netcat to run ZED server within Singularity
-    netcat-openbsd \
+    # Add git-lfs
+    git-lfs \
     # Bioinformatics dependencies
     libhdf5-dev libgeos-dev libgsl0-dev gsl-bin \
     # R package system dependencies
