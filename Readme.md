@@ -46,6 +46,8 @@ Or adapt the default VERSION in the makefile and run `make`.
 
 ## Changelog
 
+- *2025-05-14*
+  - Add quarto
 - *2025-04-24*
   - Add `git-lfs`
   - Bump to `4.4.3`

@@ -6,8 +6,8 @@ RUN apt-get -qq update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     # Core development tools
     build-essential gcc python3-dev python3-pip python3-venv \
-    # System utilities
-    git less procps tmux curl wget zsh gdebi-core keychain \
+    # System utilities (added pandoc)
+    git less procps tmux curl wget zsh gdebi-core keychain pandoc \
     # Compression tools
     pigz zstd \
     # Java stack
@@ -27,7 +27,7 @@ RUN apt-get -qq update && \
     libpoppler-cpp-dev libmpfr-dev libzmq5 \
     libicu-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
-    
+
 # Manual installation of libicu70 for tidyverse compatibility
 RUN wget -q http://security.ubuntu.com/ubuntu/pool/main/i/icu/libicu70_70.1-2ubuntu1_amd64.deb && \
     dpkg -i libicu70_70.1-2ubuntu1_amd64.deb && \
@@ -43,19 +43,24 @@ RUN pip3 install --no-cache-dir \
     igraph openpyxl python-dateutil jupyter \
     visidata radian anndata scanpy scvi-tools
 
+# Install Quarto CLI (pinned version for reproducibility)
+ARG QUARTO_VERSION="1.4.553"
+RUN curl -LO https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.deb && \
+    gdebi --non-interactive quarto-${QUARTO_VERSION}-linux-amd64.deb && \
+    rm quarto-${QUARTO_VERSION}-linux-amd64.deb
+
 # R environment configuration
-RUN R CMD javareconf  # Java integration for R packages
+# Java integration for R packages
+RUN R CMD javareconf
 
-# Application setup
+# Copy Shiny Server startup script
 COPY shiny-server.sh /usr/bin/shiny-server.sh
+RUN chmod +x /usr/bin/shiny-server.sh
 
-# Network configuration
-# Shiny Server
-EXPOSE 3838
-# RStudio Server
-EXPOSE 8787
+# Expose ports for Shiny Server and RStudio Server
+EXPOSE 3838 8787
 
 # Recommended runtime configuration
-VOLUME /srv/shiny-server
-VOLUME /var/lib/shiny-server
+VOLUME ["/srv/shiny-server", "/var/lib/shiny-server"]
+
 CMD ["/usr/bin/shiny-server.sh"]
