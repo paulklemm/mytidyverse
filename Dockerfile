@@ -1,5 +1,5 @@
-# Base image with Shiny Server and R 4.4.3
-FROM rocker/shiny-verse:4.4.3
+# Base image with Shiny Server and R 4.5.0
+FROM rocker/shiny-verse:4.5.0
 
 # System dependencies installation with cleanup
 RUN apt-get -qq update && \
