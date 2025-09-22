@@ -12,6 +12,8 @@ RUN apt-get update -qq && \
     pigz zstd \
     # Java stack
     default-jdk \
+    # GIT LFS
+    git-lfs \
     # Minimal X11 dependencies for forwarding
     xvfb xauth xfonts-base x11-xkb-utils \
     # Monitoring tools
