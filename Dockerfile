@@ -54,7 +54,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # Install Python packages
 RUN pip3 install --no-cache-dir \
-    "pandas<2.0.0" \
+    pandas \
     igraph openpyxl python-dateutil jupyter \
     visidata radian anndata scanpy scvi-tools
 
