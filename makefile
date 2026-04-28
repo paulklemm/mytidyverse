@@ -1,7 +1,7 @@
 VERSION=4.5.3-1
 DOCKERHUB_USER=paulklemm
-SERVER=pklemm@blade27.sf.mpg.de
-SINGULARITY_PATH=/beegfs/scratch/bruening_scratch/pklemm/singularity/singularity-images
+SERVER=pklemm@blade44.sf.mpg.de
+SINGULARITY_PATH=/cephfs/scratch/bruening_scratch/pklemm/singularity/singularity-images
 SINGULARITY_LATEST_PATH=$(SINGULARITY_PATH)/latest
 PLATFORM=--platform linux/amd64
 SINGULARITY_IMAGE=quay.io/singularity/singularity:v4.3.1
