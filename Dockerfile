@@ -1,5 +1,5 @@
-# Base image: R 4.5.1 with Shiny Server and tidyverse
-FROM rocker/shiny-verse:4.5.1
+# Base image: R 4.5.3 with Shiny Server and tidyverse
+FROM rocker/shiny-verse:4.5.3
 
 # Install system dependencies with minimal X11 requirements
 RUN apt-get update -qq && \
@@ -20,6 +20,8 @@ RUN apt-get update -qq && \
     htop btop \
     # Bioinformatics dependencies
     libhdf5-dev libgeos-dev libgsl0-dev gsl-bin \
+    # Add Ripgrep
+    ripgrep \
     # R package system dependencies
     libglpk-dev libudunits2-dev libxml2-dev libssl-dev \
     libcurl4-openssl-dev libcairo2-dev libfontconfig1-dev \
@@ -40,7 +42,8 @@ RUN apt-get update && \
         wget && \
     wget https://github.com/apptainer/apptainer/releases/download/v1.3.0/apptainer_1.3.0_amd64.deb && \
     dpkg -i apptainer_1.3.0_amd64.deb && \
-    rm apptainer_1.3.0_amd64.deb
+    rm apptainer_1.3.0_amd64.deb && \
+    apt-get clean
 
 # Optionally, create a symlink for 'singularity' command
 RUN ln -s /usr/bin/apptainer /usr/local/bin/singularity
