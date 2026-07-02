@@ -12,7 +12,7 @@
 
 ---
 
-[My](https://github.com/paulklemm/) development `tidyverse` image is based on [r-base](https://hub.docker.com/_/r-base/).
+[My](https://github.com/paulklemm/) development `tidyverse` image is based on [rocker/shiny-verse](https://hub.docker.com/r/rocker/shiny-verse).
 
 ## Installed Dependencies
 
@@ -31,21 +31,27 @@ Run the building process manually using the following code (adapting the version
 
 ```bash
 docker login
-docker build --no-cache -t mytidyverse .
-docker tag mytidyverse paulklemm/mytidyverse:4.5.3-1
-docker push paulklemm/mytidyverse:4.5.3-1
+docker build --platform linux/amd64 --no-cache -t mytidyverse .
+docker tag mytidyverse paulklemm/mytidyverse:4.6.1-1
+docker push paulklemm/mytidyverse:4.6.1-1
 ```
 
-You can also use the makefile.
+You can also use the makefile. Note that the default target runs the full deploy (build → push → Singularity conversion → scp to the HPC server → update the `latest` symlink); use `make build` to only build and push the Docker image.
 
 ```bash
-make VERSION=4.5.3-1
+make VERSION=4.6.1-1
 ```
 
 Or adapt the default VERSION in the makefile and run `make`.
 
 ## Changelog
 
+- *2026-07-02*
+  - Bump base image to R 4.6.1
+  - Bump Apptainer `1.3.0` → `1.5.2` and Quarto `1.7.31` → `1.9.38`
+  - Add `libsodium-dev`
+  - Fix silent-failure and robustness issues in Dockerfile, makefile, `.dockerignore` and `shiny-server.sh`
+  - Bump to `4.6.1-1`
 - *2026-04-28*
   - Add ripgrep
   - Bump to `4.5.3-1`
