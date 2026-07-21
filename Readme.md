@@ -44,8 +44,35 @@ make VERSION=4.6.1-1
 
 Or adapt the default VERSION in the makefile and run `make`.
 
+## Migrating R packages across an R bump
+
+R keeps a separate package library per minor version (`~/R/…-library/4.5` vs
+`…/4.6`), so bumping R leaves the new version with an empty library. The
+`pak-migrate.R` script snapshots the packages installed under the old R —
+detecting each one's source (CRAN, Bioconductor, GitHub, …) — and reinstalls
+them under the new R with [pak](https://pak.r-lib.org/). The makefile drives it
+on the server, inside the image.
+
+Run these **around** a deploy, in order (snapshot while the old image is still
+`latest`; restore after `make copy` has put the new `.simg` on the server, but
+before `make create-link` flips `latest`):
+
+```bash
+make snapshot      # 1. read the CURRENT image's library -> r-package-manifest.csv
+make restore-dry   # 2a. preview what the new image would reinstall (installs nothing)
+make restore       # 2b. reinstall the manifest under the new image with pak
+make verify        # 3. confirm the new library matches the manifest
+make create-link   # 4. only now flip `latest` to the new image
+```
+
+pak selects the Bioconductor release matching the new R automatically. Anything
+it can't reinstall is listed in `<manifest>-missing.csv` with the reason. Pass
+extra pak flags with `make restore PAK_FLAGS=--upgrade`.
+
 ## Changelog
 
+- *2026-07-21*
+  - Add `pak-migrate.R` and `make snapshot`/`restore`/`restore-dry`/`verify` to reinstall R packages across an R minor-version bump
 - *2026-07-02*
   - Bump base image to R 4.6.1
   - Bump Apptainer `1.3.0` → `1.5.2` and Quarto `1.7.31` → `1.9.38`
