@@ -53,21 +53,34 @@ detecting each one's source (CRAN, Bioconductor, GitHub, …) — and reinstalls
 them under the new R with [pak](https://pak.r-lib.org/). The makefile drives it
 on the server, inside the image.
 
-Run these **around** a deploy, in order (snapshot while the old image is still
-`latest`; restore after `make copy` has put the new `.simg` on the server, but
-before `make create-link` flips `latest`):
+### Full workflow (R bump that carries packages over)
+
+When the package library must be rebuilt, don't run the default `make` — it
+flips `latest` to the new image at the end, before you get a chance to restore
+and verify. Run the steps individually instead, in this order (bump `VERSION`
+in the makefile, or pass `VERSION=…` to every command, first):
 
 ```bash
-make snapshot      # 1. read the CURRENT image's library -> r-package-manifest.csv
-make restore-dry   # 2a. preview what the new image would reinstall (installs nothing)
-make restore       # 2b. reinstall the manifest under the new image with pak
-make verify        # 3. confirm the new library matches the manifest
-make create-link   # 4. only now flip `latest` to the new image
+make snapshot      # 1. read the CURRENT (live) image's library -> r-package-manifest.csv
+make build         # 2. build the new Docker image and push it to Docker Hub
+make singularity   # 3. convert it to a local .simg
+make copy          # 4. scp the .simg to the server (new image now on the server)
+make restore-dry   # 5. preview what the new image would reinstall (installs nothing)
+make restore       # 6. reinstall the manifest under the new image with pak
+make verify        # 7. confirm the new library matches the manifest
+make create-link   # 8. only now flip `latest` to the new image -> go live
+make clean         # 9. remove the local .simg
 ```
+
+Steps 1 and 8 are the ordering that matters: snapshot **while the old image is
+still `latest`** (otherwise it reads the empty new library), and flip `latest`
+**only after** verify passes. Steps 2–4 are exactly what the default `make`
+does, minus `create-link`.
 
 pak selects the Bioconductor release matching the new R automatically. Anything
 it can't reinstall is listed in `<manifest>-missing.csv` with the reason. Pass
-extra pak flags with `make restore PAK_FLAGS=--upgrade`.
+extra pak flags with `make restore PAK_FLAGS=--upgrade`. If a step fails,
+re-running it is safe — every target is idempotent.
 
 ## Changelog
 
