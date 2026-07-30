@@ -75,9 +75,28 @@ makes `sbatch`/`squeue`/`srun`/… work normally (verified against slurm-wlm
 glibc inside the image):
 
 ```bash
-# Add to ~/.bashrc on the HPC - picked up by every singularity/apptainer call
 export SINGULARITY_BIND="/etc/slurm,/run/munge,/usr/lib/x86_64-linux-gnu/slurm-wlm,/usr/lib/x86_64-linux-gnu/libmunge.so.2,/usr/bin/sbatch,/usr/bin/squeue,/usr/bin/srun,/usr/bin/salloc,/usr/bin/scancel,/usr/bin/scontrol,/usr/bin/sinfo,/usr/bin/sacct"
 ```
+
+The variable must be set in the environment of the process that **launches**
+singularity — binds are fixed at container start. In practice:
+
+- **Interactive use** (`singularity shell/exec` from a shell on the HPC): an
+  `export` in the shell's rc file works, but beware of early `return` guards
+  (TRAMP / non-interactive checks) that skip it, and remember zsh never reads
+  `~/.bashrc`.
+- **Non-interactive launchers** — ssh `RemoteCommand` aliases, scripts, VS
+  Code remote — run through a non-interactive shell that sources no rc files.
+  Prefix the variable to the command itself:
+
+  ```ssh-config
+  RemoteCommand SINGULARITY_BIND=/etc/slurm,/run/munge,… singularity run … mytidyverse.simg bash
+  ```
+
+Note that `echo $SINGULARITY_BIND` *inside* the container tells you nothing:
+your home directory (and therefore your dotfiles) is mounted, so a shell in
+the container can set the variable itself even though the binds were never
+applied. Check `which sbatch` instead.
 
 What each bind provides:
 
