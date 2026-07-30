@@ -1,8 +1,11 @@
-VERSION=4.6.1-1
+VERSION=4.6.1-2
 DOCKERHUB_USER=paulklemm
+GITHUB_REPO=https://github.com/paulklemm/mytidyverse
 SERVER=pklemm@blade44.sf.mpg.de
 SINGULARITY_PATH=/cephfs/scratch/bruening_scratch/pklemm/singularity/singularity-images
 SINGULARITY_LATEST_PATH=$(SINGULARITY_PATH)/latest
+# Cache/tmp for the on-server `singularity pull` (keeps blobs off the home quota).
+SINGULARITY_CACHE_DIR=/cephfs/scratch/bruening_scratch/pklemm/singularity/cache
 PLATFORM=--platform linux/amd64
 SINGULARITY_IMAGE=quay.io/singularity/singularity:v4.3.1
 
@@ -15,27 +18,64 @@ MANIFEST=r-package-manifest.csv
 REMOTE_MIGRATE_PATH=$(SINGULARITY_PATH)
 # Image to READ from when snapshotting: whatever is live now (the old R).
 CURRENT_IMAGE=$(SINGULARITY_LATEST_PATH)/mytidyverse.simg
-# Image to REINSTALL into: this build's versioned .simg (present after `copy`).
+# Image to REINSTALL into: this build's versioned .simg (present after `remote-singularity`).
 NEW_IMAGE=$(SINGULARITY_PATH)/mytidyverse-$(VERSION).simg
 SEXEC=cd $(REMOTE_MIGRATE_PATH) && singularity exec
 
-.PHONY: all build singularity copy create-link clean push-migrate snapshot restore-dry restore verify
-all: build singularity copy create-link clean
+.PHONY: all ci-build wait-image remote-singularity create-link \
+	local-deploy local-build local-singularity local-copy clean \
+	push-migrate snapshot restore-dry restore verify
 
-build:
+# Default: remote deploy. GitHub Actions builds and pushes the image (the tag
+# push triggers .github/workflows/build.yml), then the server converts it to a
+# .simg with an unprivileged `singularity pull` - no local Docker daemon, no
+# root on the HPC.
+all: ci-build wait-image remote-singularity create-link
+
+# Tag HEAD as $(VERSION) and push it; GitHub Actions builds, smoke-tests and
+# pushes $(DOCKERHUB_USER)/mytidyverse:$(VERSION) to Docker Hub. To rebuild an
+# existing version, use "Run workflow" on the Actions page instead.
+ci-build:
+	@git diff --quiet && git diff --cached --quiet || { echo "Working tree is dirty - commit first."; exit 1; }
+	git push origin HEAD
+	git tag $(VERSION)
+	git push origin $(VERSION)
+	@echo "CI build running: $(GITHUB_REPO)/actions"
+
+# Block until the CI-built image appears on Docker Hub (~30-60 min; gives up
+# after 90 min - check the Actions page if that happens).
+wait-image:
+	@echo "Waiting for $(DOCKERHUB_USER)/mytidyverse:$(VERSION) on Docker Hub ..."
+	@i=0; until curl -sfo /dev/null https://hub.docker.com/v2/repositories/$(DOCKERHUB_USER)/mytidyverse/tags/$(VERSION); do \
+		i=$$((i+1)); \
+		if [ $$i -ge 90 ]; then echo "Gave up after 90 min - check $(GITHUB_REPO)/actions"; exit 1; fi; \
+		echo "  $$(date +%H:%M:%S)  not there yet, retrying in 60 s"; \
+		sleep 60; \
+	done
+	@echo "Image is on Docker Hub."
+
+# Convert the Docker Hub image to a .simg directly on the server. Pulling a
+# docker:// URI is unprivileged - only .def-file builds would need root.
+remote-singularity:
+	ssh $(SERVER) "mkdir -p $(SINGULARITY_CACHE_DIR) && SINGULARITY_CACHEDIR=$(SINGULARITY_CACHE_DIR) SINGULARITY_TMPDIR=$(SINGULARITY_CACHE_DIR) singularity pull --force $(SINGULARITY_PATH)/mytidyverse-$(VERSION).simg docker://$(DOCKERHUB_USER)/mytidyverse:$(VERSION)"
+
+create-link:
+	ssh $(SERVER) "ln -sfn $(SINGULARITY_PATH)/mytidyverse-$(VERSION).simg $(SINGULARITY_LATEST_PATH)/mytidyverse.simg"
+
+# --- Local fallback (the old flow; needs a local Docker daemon) --------------
+local-deploy: local-build local-singularity local-copy create-link clean
+
+local-build:
 	docker login
 	docker build --pull $(PLATFORM) -t mytidyverse .
 	docker tag mytidyverse $(DOCKERHUB_USER)/mytidyverse:$(VERSION)
 	docker push $(DOCKERHUB_USER)/mytidyverse:$(VERSION)
 
-singularity:
+local-singularity:
 	docker run $(PLATFORM) --rm -v "$(CURDIR):/mytidyverse" $(SINGULARITY_IMAGE) build /mytidyverse/mytidyverse-$(VERSION).simg docker://$(DOCKERHUB_USER)/mytidyverse:$(VERSION)
 
-copy:
+local-copy:
 	scp "$(CURDIR)/mytidyverse-$(VERSION).simg" $(SERVER):$(SINGULARITY_PATH)
-
-create-link:
-	ssh $(SERVER) "ln -sfn $(SINGULARITY_PATH)/mytidyverse-$(VERSION).simg $(SINGULARITY_LATEST_PATH)/mytidyverse.simg"
 
 clean:
 	rm -f mytidyverse-$(VERSION).simg

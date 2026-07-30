@@ -23,26 +23,45 @@ It adds:
   - You can start a shiny server using `shiny-server.sh`
   - For details, check the [rocker/shiny](https://github.com/rocker-org/shiny) repo
 - [visidata](https://visidata.org/) for the [rvisidata](https://github.com/paulklemm/rvisidata) package
+- Node.js and npm ([NodeSource](https://github.com/nodesource/distributions), Node 24)
 - A whole bunch of libraries for a number of different R packages, mostly for bioinformatics analyses
 
 ## Build the Image
 
-Run the building process manually using the following code (adapting the version).
+The image is built remotely on GitHub Actions — no local Docker daemon needed.
+The default `make` target runs the full deploy:
+
+1. `ci-build` — tags the current commit with `VERSION` and pushes it; GitHub
+   Actions builds the image (native amd64, no emulation), smoke-tests it and
+   pushes `paulklemm/mytidyverse:VERSION` to Docker Hub
+2. `wait-image` — polls Docker Hub until the tag appears (~30–60 min)
+3. `remote-singularity` — converts the image to a `.simg` directly on the HPC
+   via an unprivileged `singularity pull` (no root or Docker on the server)
+4. `create-link` — flips the `latest` symlink → the new image goes live
 
 ```bash
-docker login
-docker build --platform linux/amd64 --no-cache -t mytidyverse .
-docker tag mytidyverse paulklemm/mytidyverse:4.6.1-1
-docker push paulklemm/mytidyverse:4.6.1-1
+make VERSION=4.6.1-2
 ```
 
-You can also use the makefile. Note that the default target runs the full deploy (build → push → Singularity conversion → scp to the HPC server → update the `latest` symlink); use `make build` to only build and push the Docker image.
+Or adapt the default `VERSION` in the makefile and run `make`. To rebuild an
+existing version without creating a new tag, use the *Run workflow* button on
+the [Actions page](https://github.com/paulklemm/mytidyverse/actions).
+
+### One-time setup
+
+The workflow authenticates to Docker Hub via two repository secrets (GitHub →
+Settings → Secrets and variables → Actions): `DOCKERHUB_USERNAME` and
+`DOCKERHUB_TOKEN` (an access token with *Read & Write* scope from Docker Hub →
+Account Settings → Personal access tokens).
+
+### Local fallback
+
+The old fully-local flow is still available if CI is down (requires a local
+Docker daemon; slow on Apple Silicon due to amd64 emulation):
 
 ```bash
-make VERSION=4.6.1-1
+make local-deploy VERSION=4.6.1-2   # build → push → .simg conversion → scp → create-link
 ```
-
-Or adapt the default VERSION in the makefile and run `make`.
 
 ## Migrating R packages across an R bump
 
@@ -61,15 +80,14 @@ and verify. Run the steps individually instead, in this order (bump `VERSION`
 in the makefile, or pass `VERSION=…` to every command, first):
 
 ```bash
-make snapshot      # 1. read the CURRENT (live) image's library -> r-package-manifest.csv
-make build         # 2. build the new Docker image and push it to Docker Hub
-make singularity   # 3. convert it to a local .simg
-make copy          # 4. scp the .simg to the server (new image now on the server)
-make restore-dry   # 5. preview what the new image would reinstall (installs nothing)
-make restore       # 6. reinstall the manifest under the new image with pak
-make verify        # 7. confirm the new library matches the manifest
-make create-link   # 8. only now flip `latest` to the new image -> go live
-make clean         # 9. remove the local .simg
+make snapshot            # 1. read the CURRENT (live) image's library -> r-package-manifest.csv
+make ci-build            # 2. tag + push -> GitHub Actions builds and pushes the new image
+make wait-image          # 3. wait until the new image is on Docker Hub
+make remote-singularity  # 4. convert it to a .simg on the server (new image now on the server)
+make restore-dry         # 5. preview what the new image would reinstall (installs nothing)
+make restore             # 6. reinstall the manifest under the new image with pak
+make verify              # 7. confirm the new library matches the manifest
+make create-link         # 8. only now flip `latest` to the new image -> go live
 ```
 
 Steps 1 and 8 are the ordering that matters: snapshot **while the old image is
@@ -84,6 +102,10 @@ re-running it is safe — every target is idempotent.
 
 ## Changelog
 
+- *2026-07-30*
+  - Move the Docker build to GitHub Actions and the `.simg` conversion onto the HPC (unprivileged `singularity pull`) — no local Docker daemon and no root on the server needed
+  - Add Node.js and npm (NodeSource, Node 24)
+  - Bump to `4.6.1-2`
 - *2026-07-21*
   - Add `pak-migrate.R` and `make snapshot`/`restore`/`restore-dry`/`verify` to reinstall R packages across an R minor-version bump
 - *2026-07-02*

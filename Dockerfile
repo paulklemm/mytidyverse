@@ -70,6 +70,13 @@ RUN curl -fLO https://github.com/quarto-dev/quarto-cli/releases/download/v${QUAR
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# Install Node.js and npm (NodeSource; Ubuntu's packaged node is outdated)
+ARG NODE_MAJOR="24"
+RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_MAJOR}.x | bash - && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends nodejs && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # Configure Java for R
 RUN R CMD javareconf && \
     install2.r --error rJava
