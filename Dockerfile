@@ -51,6 +51,14 @@ RUN apt-get update && \
 # Optionally, create a symlink for 'singularity' command
 RUN ln -sf /usr/bin/apptainer /usr/local/bin/singularity
 
+# SLURM user for HPC integration: the cluster's slurm-wlm client tools, config
+# and munge socket are bind-mounted into the container at runtime (see Readme,
+# "Using SLURM from inside the container"). Parsing slurm.conf requires the
+# SlurmUser to resolve inside the container - create it with the host's uid.
+RUN groupadd --system --gid 64030 slurm && \
+    useradd --system --uid 64030 --gid slurm \
+        --home-dir /nonexistent --shell /usr/sbin/nologin slurm
+
 # Configure Python virtual environment
 RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"

@@ -6,6 +6,8 @@
 
 - [Installed Dependencies](#installed-dependencies)
 - [Build the Image](#build-the-image)
+- [Using SLURM from inside the container](#using-slurm-from-inside-the-container)
+- [Migrating R packages across an R bump](#migrating-r-packages-across-an-r-bump)
 - [Changelog](#changelog)
 
 <!-- /TOC -->
@@ -63,6 +65,38 @@ Docker daemon; slow on Apple Silicon due to amd64 emulation):
 make local-deploy VERSION=4.6.1-2   # build → push → .simg conversion → scp → create-link
 ```
 
+## Using SLURM from inside the container
+
+Singularity/Apptainer only shares your home directory and a few system paths
+with the host, so the cluster's SLURM client tools, config and MUNGE auth
+socket are invisible inside the container. Bind-mounting them from the host
+makes `sbatch`/`squeue`/`srun`/… work normally (verified against slurm-wlm
+21.08 on the Ubuntu 22.04 blades; the host binaries run fine on the newer
+glibc inside the image):
+
+```bash
+# Add to ~/.bashrc on the HPC - picked up by every singularity/apptainer call
+export SINGULARITY_BIND="/etc/slurm,/run/munge,/usr/lib/x86_64-linux-gnu/slurm-wlm,/usr/lib/x86_64-linux-gnu/libmunge.so.2,/usr/bin/sbatch,/usr/bin/squeue,/usr/bin/srun,/usr/bin/salloc,/usr/bin/scancel,/usr/bin/scontrol,/usr/bin/sinfo,/usr/bin/sacct"
+```
+
+What each bind provides:
+
+- `/etc/slurm` — cluster config (`slurm.conf`)
+- `/run/munge` — MUNGE socket used to authenticate to `slurmctld`
+- `…/slurm-wlm` — `libslurmfull.so` plus the plugins the client dlopens (auth, select, …)
+- `…/libmunge.so.2` — library behind the auth plugin
+- `/usr/bin/s…` — the client commands themselves
+
+Since `4.6.1-3` the image contains the `slurm` system user (uid 64030,
+matching the host) that `slurm.conf` references. Images built before that fail
+with `Invalid user for SlurmUser slurm` — work around it by binding a passwd
+file that combines the host's system users with your own LDAP-resolved entry:
+
+```bash
+cat /etc/passwd <(getent passwd $USER) > ~/.container-passwd
+export SINGULARITY_BIND="$HOME/.container-passwd:/etc/passwd,$SINGULARITY_BIND"
+```
+
 ## Migrating R packages across an R bump
 
 R keeps a separate package library per minor version (`~/R/…-library/4.5` vs
@@ -102,6 +136,9 @@ re-running it is safe — every target is idempotent.
 
 ## Changelog
 
+- *2026-07-30*
+  - Add the `slurm` system user (uid 64030, matches the HPC) so the cluster's SLURM client tools work inside the container via bind mounts — see [Using SLURM from inside the container](#using-slurm-from-inside-the-container)
+  - Bump to `4.6.1-3`
 - *2026-07-30*
   - Move the Docker build to GitHub Actions and the `.simg` conversion onto the HPC (unprivileged `singularity pull`) — no local Docker daemon and no root on the server needed
   - Add Node.js and npm (NodeSource, Node 24)

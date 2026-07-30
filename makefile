@@ -1,4 +1,4 @@
-VERSION=4.6.1-2
+VERSION=4.6.1-3
 DOCKERHUB_USER=paulklemm
 GITHUB_REPO=https://github.com/paulklemm/mytidyverse
 SERVER=pklemm@blade44.sf.mpg.de
