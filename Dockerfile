@@ -85,6 +85,15 @@ RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_MAJOR}.x | bash - && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# Install GitHub CLI (pinned version; Ubuntu's packaged gh is outdated)
+ARG GH_VERSION="2.100.0"
+RUN curl -fLO https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.deb && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends ./gh_${GH_VERSION}_linux_amd64.deb && \
+    rm gh_${GH_VERSION}_linux_amd64.deb && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # Configure Java for R
 RUN R CMD javareconf && \
     install2.r --error rJava

@@ -26,6 +26,7 @@ It adds:
   - For details, check the [rocker/shiny](https://github.com/rocker-org/shiny) repo
 - [visidata](https://visidata.org/) for the [rvisidata](https://github.com/paulklemm/rvisidata) package
 - Node.js and npm ([NodeSource](https://github.com/nodesource/distributions), Node 24)
+- [GitHub CLI](https://cli.github.com/) (`gh`, pinned via `GH_VERSION` in the Dockerfile)
 - A whole bunch of libraries for a number of different R packages, mostly for bioinformatics analyses
 
 ## Build the Image
@@ -155,6 +156,9 @@ re-running it is safe — every target is idempotent.
 
 ## Changelog
 
+- *2026-09-09*
+  - Add the [GitHub CLI](https://cli.github.com/) (`gh` 2.100.0)
+  - Bump to `4.6.1-4`
 - *2026-07-30*
   - Add the `slurm` system user (uid 64030, matches the HPC) so the cluster's SLURM client tools work inside the container via bind mounts — see [Using SLURM from inside the container](#using-slurm-from-inside-the-container)
   - Bump to `4.6.1-3`
