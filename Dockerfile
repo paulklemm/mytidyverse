@@ -16,8 +16,8 @@ RUN apt-get update -qq && \
     git-lfs \
     # Minimal X11 dependencies for forwarding
     xvfb xauth xfonts-base x11-xkb-utils \
-    # Monitoring tools
-    htop btop \
+    # Monitoring and debugging tools
+    htop btop gdu duf sysstat lsof strace \
     # Bioinformatics dependencies
     libhdf5-dev libgeos-dev libgsl-dev gsl-bin \
     # Add Ripgrep
@@ -67,7 +67,8 @@ ENV PATH="/opt/venv/bin:$PATH"
 RUN pip3 install --no-cache-dir \
     pandas \
     igraph openpyxl python-dateutil jupyter \
-    visidata radian anndata scanpy scvi-tools
+    visidata radian anndata scanpy scvi-tools \
+    nvitop turm
 
 # Install Quarto CLI (pinned version)
 ARG QUARTO_VERSION="1.9.38"

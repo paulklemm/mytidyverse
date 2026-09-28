@@ -5,6 +5,7 @@
 <!-- TOC depthFrom:2 -->
 
 - [Installed Dependencies](#installed-dependencies)
+- [Monitoring tools](#monitoring-tools)
 - [Build the Image](#build-the-image)
 - [Using SLURM from inside the container](#using-slurm-from-inside-the-container)
 - [Migrating R packages across an R bump](#migrating-r-packages-across-an-r-bump)
@@ -28,6 +29,21 @@ It adds:
 - Node.js and npm ([NodeSource](https://github.com/nodesource/distributions), Node 24)
 - [GitHub CLI](https://cli.github.com/) (`gh`, pinned via `GH_VERSION` in the Dockerfile)
 - A whole bunch of libraries for a number of different R packages, mostly for bioinformatics analyses
+
+## Monitoring tools
+
+| Tool | Use |
+|---|---|
+| `htop`, `btop` | CPU, memory and processes (`btop` also shows GPUs when run with `--nv`) |
+| [`nvitop`](https://github.com/XuehaiPan/nvitop) | NVIDIA GPU usage per process — requires `singularity … --nv` |
+| [`turm`](https://github.com/kabouzeid/turm) | TUI for SLURM jobs and their live logs — requires the SLURM binds below |
+| [`gdu`](https://github.com/dundee/gdu) | Fast, parallel disk-usage explorer (`ncdu` alternative) |
+| [`duf`](https://github.com/muesli/duf) | Readable `df`: free space per mount |
+| `sysstat` | `iostat`, `pidstat`, `mpstat` — I/O and per-process CPU statistics |
+| `lsof`, `strace` | Inspect open files and system calls of a hanging process |
+
+Tools needing root (`iotop`, `nethogs`) are omitted, since they don't work in an
+unprivileged Singularity container.
 
 ## Build the Image
 
@@ -76,7 +92,7 @@ makes `sbatch`/`squeue`/`srun`/… work normally (verified against slurm-wlm
 glibc inside the image):
 
 ```bash
-export SINGULARITY_BIND="/etc/slurm,/run/munge,/usr/lib/x86_64-linux-gnu/slurm-wlm,/usr/lib/x86_64-linux-gnu/libmunge.so.2,/usr/bin/sbatch,/usr/bin/squeue,/usr/bin/srun,/usr/bin/salloc,/usr/bin/scancel,/usr/bin/scontrol,/usr/bin/sinfo,/usr/bin/sacct"
+export SINGULARITY_BIND="/etc/slurm,/run/munge,/usr/lib/x86_64-linux-gnu/slurm-wlm,/usr/lib/x86_64-linux-gnu/libmunge.so.2,/usr/bin/sbatch,/usr/bin/squeue,/usr/bin/srun,/usr/bin/salloc,/usr/bin/scancel,/usr/bin/scontrol,/usr/bin/sinfo,/usr/bin/sacct,/usr/bin/sstat"
 ```
 
 The variable must be set in the environment of the process that **launches**
@@ -156,6 +172,10 @@ re-running it is safe — every target is idempotent.
 
 ## Changelog
 
+- *2026-09-28*
+  - Add monitoring tools `gdu`, `duf`, `sysstat`, `lsof`, `strace`, `nvitop` and `turm` — see [Monitoring tools](#monitoring-tools)
+  - Add `sstat` to the recommended SLURM binds
+  - Bump to `4.6.1-5`
 - *2026-09-09*
   - Add the [GitHub CLI](https://cli.github.com/) (`gh` 2.100.0)
   - Bump to `4.6.1-4`
